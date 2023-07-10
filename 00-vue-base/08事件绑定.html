@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>点击次数：{{count}}</h1>
+    <!--可以使用表达式完成事件操作-->
+    <button type="button" @click="count+=1">点击</button>
+    <button type="button" @click="toggleMenu">点击2</button>
+
+    <ul>
+        <!--在DOM事件的回调函数中传入参数$event，可以获取到该事件的事件对象.比如$event.target表示当前目标的DOM对象
+            通过该对象自带的一些属性，我们可以避免过多的冗余代码，细化代码。-->
+        <li v-for="(item,index) in start" @click="clickEvent(index,item,$event)">索引值：{{index}}--{{item}}</li>
+    </ul>
+
+    <button type="button" @click="create">开启定时任务</button><br>
+    <span v-html="name"></span>
+</div>
+
+
+<script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    let app = new Vue({
+        el: "#app",
+        data: {
+            count: 0,
+            start: ['朱丽叶', '罗密欧', '凯撒'],
+            name: '',
+        },
+        methods: {
+            toggleMenu: function () {
+                this.count++;
+            },
+            clickEvent: function (index, value, event) {
+                console.log(index);
+                console.log(value);
+                console.log(event);
+            },
+            create() {
+                this.name = "hello,word! 我出生了！";
+                // 定时任务，两秒后重新赋值进行覆盖
+                setTimeout(() => this.name = "<font color='#ff7f50'>我穿越了</font>", 2000);
+            }
+        }
+    })
+</script>
+</body>
+</html>
