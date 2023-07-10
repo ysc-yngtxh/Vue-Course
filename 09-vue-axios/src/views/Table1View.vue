@@ -5,7 +5,6 @@
               :default-sort="{prop:'id',order:'descending'}" border style="width: 100%"
               @sort-change="sortChange">
       <!-- sortable默认仅在当前页的数据进行排序 -->
-<!--      <el-table-column  prop="" label="Id" width="150" align="center"/>-->
       <el-table-column sortable prop="id" label="UserId" width="150" align="center"/>
       <el-table-column prop="username" label="UserName" width="350" align="center"/>
       <el-table-column prop="password" label="PassWord" width="200" align="center"/>
@@ -18,7 +17,7 @@
               <Edit/>
             </el-icon>
           </el-button>&nbsp;&nbsp;
-          <el-button type="danger" @click="deletePost(ope.row, ope.column, ope.$index )" circle style="width: 42.4px">
+          <el-button type="danger" @click="deletePost(ope.row, ope.column, ope.$index)" circle style="width: 42.4px">
             <el-icon>
               <Delete/>
             </el-icon>
@@ -33,13 +32,12 @@
           background
           layout="prev, pager, next ,total,sizes"
           :total="state.total"
-          :page-sizes="[5, 10, 20, 30]"
+          :page-sizes="[5, 10, 20, 50]"
           @current-change="handleCurrentChange"
           @size-change="handleSizeChange"
       />
     </div>
   </div>
-
 
   <!-- 编辑弹窗框 -->
   <el-dialog v-model="dialogFormVisible" title="修改用户数据">
@@ -70,7 +68,6 @@
 </template>
 
 <script>
-// import { reactive} from 'vue'
 import axios from 'axios'
 import {Delete, Edit} from '@element-plus/icons-vue'
 // Vue2中使用element-ui消息组件是'Message'，Vue3使用element-plus消息组件'ElMessage'
@@ -81,7 +78,7 @@ export default {
   data() {
     return {
       allTableData: [],
-      //表格用到的参数
+      // 表格用到的参数
       state: {
         page: 1,
         limit: 10,
@@ -104,36 +101,33 @@ export default {
     this.tableNum()
   },
   methods: {
-    // const allTableData = reactive({})
     tableNum() {
-      axios.get('/home/selectAll', {
+      axios.get('/home/selectPage', {
         params: {
-          // username: '赵一'
-          // pageNum:this.state.page*this.state.limit,//从几开始
-          // pageSize:this.state.limit//每页多少个
+          page: this.state.page,
+          size: this.state.limit
         },
         headers: {
           'X-Token': localStorage.getItem("Authorization")
         }
       }).then(response => {
         // let user = eval( JSON.stringify(response.data.data) )
-        let a = response.data.data
+        let a = response.data.data.data
         this.allTableData.push.apply(this.allTableData, a)
-        this.state.total = this.allTableData.length
+        this.state.total = response.data.data.total
       })
     },
-    //改变页码
+    // 改变页码
     handleCurrentChange(e) {
       this.state.page = e;
     },
-    //改变页数限制
+    // 改变页数限制
     handleSizeChange(e) {
       this.state.limit = e;
     },
-    // 默认参数{ column, prop, order }
-    // 当表格的排序条件发生变化的时候会触发该事件
+    // 默认参数{ column, prop, order } 当表格的排序条件发生变化的时候会触发该事件
     sortChange(k) {
-      if (k.order === 'descending') {//升序
+      if (k.order === 'descending') {  // 升序
         this.allTableData.reverse()
       }
       console.log(k)
