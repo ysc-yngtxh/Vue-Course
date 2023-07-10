@@ -1,4 +1,4 @@
-# 02-vue-router
+# 03-vue-router
 
 ## Project setup
 ```
