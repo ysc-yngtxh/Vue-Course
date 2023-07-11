@@ -96,24 +96,33 @@ export default {
       };
     },
     tableNum() {
-      axios.get('/home/selectAll', {
+      axios.get('/home/selectPage', {
+        params: {
+          page: this.state.page,
+          size: this.state.limit
+        },
         headers: {
           'X-Token': localStorage.getItem("Authorization")
         }
       }).then(response => {
         // let user = eval( JSON.stringify(response.data.data) )
-        let a = response.data.data
+        if (response.data.data === null) {
+          return;
+        }
+        let a = response.data.data.data
         this.allTableData.push.apply(this.allTableData, a)
-        this.state.total = this.allTableData.length
+        this.state.total = response.data.data.total
       })
     },
     //改变页码
     handleCurrentChange(e) {
       this.state.page = e;
+      this.tableNum()
     },
     //改变页数限制
     handleSizeChange(e) {
       this.state.limit = e;
+      this.tableNum()
     },
     // 默认参数{ column, prop, order }
     // 当表格的排序条件发生变化的时候会触发该事件

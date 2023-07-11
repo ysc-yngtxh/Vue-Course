@@ -9,9 +9,7 @@
         <el-input v-model="ruleForm.password" type="password" autocomplete="off"/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)">
-          Submit
-        </el-button>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">Submit</el-button>
         <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
       </el-form-item>
     </el-form>
@@ -85,7 +83,7 @@ const submitForm = (formEl) => {
         password: ruleForm.password
       }).then(res => {
         if (res.data.code === 200) {
-          console.log(res.data.message)
+          console.log(res.data)
           localStorage.setItem("Authorization", res.data.data)
           // location.href='http://localhost:8081/#/table1'
           router.push('/table1')

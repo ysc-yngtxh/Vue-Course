@@ -5,8 +5,10 @@ import router from '@/router'
 axios.interceptors.response.use(resp => {
     if (resp.data.code === 200) {
         ElMessage.success("请求成功！！！")
-    } else {
+    } else if (resp.data.data === null) {
+        console.log(resp.data);
         ElMessage.info(resp.data.message)
+        router.push('/')
     }
     return resp;
 }, error => {
