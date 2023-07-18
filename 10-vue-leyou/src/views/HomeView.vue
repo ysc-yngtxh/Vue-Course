@@ -8,6 +8,7 @@
         disable-resize-watcher
         :color="dataReturn.dark ? 'secondary' : 'background'"
         fixed
+        permanent
         app
     >
 
@@ -28,9 +29,10 @@
 
       <!-- 左侧菜单 (pt-0)padding-top 上内边距-->
       <v-list class="pt-0" shaped
+              flat
               color="blue-lighten-1">
+        <!-- 这里的 v-list-group 适用于有子导航的抽屉 -->
         <v-list-group
-            v-model="item.action"
             v-for="item in items"
             :key="item.title"
         >
@@ -39,23 +41,18 @@
             <v-list-item
                 v-bind="props"
                 :prepend-icon="item.action"
-                no-action
-                :active="dataReturn.active">{{ item.title }}
+                :active="false">{{ item.title }}
             </v-list-item>
           </template>
           <!-- 二级菜单 -->
-          <v-list-group
-              v-for="items in item.items"
-              :key="items.title">
-            <template v-slot:activator="{ props }">
-              <v-list-item
-                  v-bind="props"
-                  router
-                  :to="item.path + items.path"
-                  v-text="items.title">
-              </v-list-item>
-            </template>
-          </v-list-group>
+          <v-list-item
+              v-for="child in item.items"
+              :key="child.title"
+              :title="child.title"
+              :value="child.title"
+              router
+              :to="item.path + child.path">
+          </v-list-item>
         </v-list-group>
         <v-divider light/>
       </v-list>
@@ -63,9 +60,9 @@
 
     <!-- 顶部工具条 -->
     <v-app-bar app dark :color="dataReturn.dark ? 'secondary' : 'primary'">
-      <!--隐藏左侧列表-->
+      <!--隐藏左侧导航列表-->
       <v-app-bar-nav-icon variant="text" @click.stop="dataReturn.rail = !dataReturn.rail"></v-app-bar-nav-icon>
-      <!--收起部分左侧列表-->
+      <!--收起左侧全部列表-->
       <v-btn icon @click.stop="dataReturn.drawer = !dataReturn.drawer">
         <v-icon v-if="dataReturn.drawer" icon='mdi-chevron-left'/>
         <v-icon v-else icon='mdi-chevron-right'/>
@@ -120,7 +117,6 @@ let dataReturn = reactive({
   drawer: true, // 左侧导航是否全部隐藏
   rail: false,  // 左侧导航是否部分收起
   title: '游诗成商城后台管理',  // 顶部导航条名称
-  active: false,
   menuMap: {}
 })
 
@@ -181,6 +177,7 @@ export default defineComponent({
 </script>
 
 <style>/*<style lang="less" scoped>*/
+
 /*隐藏滚动条，但保留滚动效果.项目中写在scoped里无效*/
 body::-webkit-scrollbar {
   display: none;
@@ -195,7 +192,6 @@ body::-webkit-scrollbar {
   width: 0 !important;
   height: 0;
 }
-
 .box {
   width: 90%;
 }
