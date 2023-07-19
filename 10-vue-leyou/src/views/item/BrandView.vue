@@ -32,9 +32,9 @@
       <el-table-column prop="image" label="LOGO" width="300" align="center">
         <template v-slot:default="scope">
           <div class="demo-image__preview" style="justify-content: center">
-            <el-image :src="scope.row.image" :preview-src-list="Array.from(scope.row.image)"
+            <el-image :src="scope.row.image" :preview-src-list="tableData.isPreView = tableData.isPreView.splice(0, tableData.isPreView.length, scope.row.image)"
                       style="width: 102px; height: 30px"
-                      fit="scale-down"
+                      fit="fill"
                       alt="无法加载出图片..."/>
           </div>
         </template>
@@ -108,6 +108,7 @@ const handleSizeChange = (val) => {
 const handleCurrentChange = (val) => {
   console.log(val)
 }
+
 const tableData = reactive({
   search: "",     // 搜索过滤字段
   totalBrands: 0, // 总条数
@@ -117,6 +118,7 @@ const tableData = reactive({
   show: false,// 控制对话框的显示
   oldBrand: {}, // 即将被编辑的品牌数据
   isEdit: false, // 是否是编辑
+  isPreView: []  // 预览图片
 });
 
 const getDataFromServer = () => {
