@@ -32,7 +32,7 @@
       <el-table-column prop="image" label="LOGO" width="300" align="center">
         <template v-slot:default="scope">
           <div class="demo-image__preview" style="justify-content: center">
-            <el-image :src="scope.row.image" :preview-src-list="tableData.isPreView = tableData.isPreView.splice(0, tableData.isPreView.length, scope.row.image)"
+            <el-image :src="scope.row.image" :preview-src-list="tableData.isPreView.splice(scope.$index, 1, scope.row.image)"
                       style="width: 102px; height: 30px"
                       fit="fill"
                       alt="无法加载出图片..."/>
