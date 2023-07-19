@@ -54,7 +54,7 @@ const paramGetSet = computed( {
   }
 })
 
-// setup里没有beforCreate和created钩子方法，但是setup是执行在这两个钩子方法之前的
+// setup里没有beforeCreate和created钩子方法，但是setup是执行在这两个钩子方法之前的
 const func1= () => {
   console.log("func1");
 }
