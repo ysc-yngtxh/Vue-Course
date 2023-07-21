@@ -1,5 +1,5 @@
 <template>
-  <v-card height="auto" min-height="660px">
+  <v-card height="auto" min-height="660px" >
     <v-container>
       <v-row>
         <v-col>
