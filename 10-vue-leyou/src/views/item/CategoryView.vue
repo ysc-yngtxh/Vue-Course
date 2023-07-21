@@ -3,9 +3,11 @@
     <v-container>
       <v-row>
         <v-col>
+          <el-input v-model="filterText" placeholder="Filter keyword" />
           <el-tree
               :data="categoryList"
               :props="props"
+              accordion
               lazy
               :load="loadChildren"/>
         </v-col>
@@ -16,9 +18,10 @@
 
 <script setup>
 import axios from 'axios'
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 
 const categoryList = reactive([])
+const filterText = ref('')
 
 const props = {
   label: 'name',      // 指定节点标签为节点对象的某个属性值
