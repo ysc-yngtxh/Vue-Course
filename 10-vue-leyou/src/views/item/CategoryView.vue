@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <el-input v-model="filterText" placeholder="Filter keyword" />
+          <el-input v-model="filterText" placeholder="Filter keyword"/>
           <el-tree
               :data="categoryList"
               :props="props"
