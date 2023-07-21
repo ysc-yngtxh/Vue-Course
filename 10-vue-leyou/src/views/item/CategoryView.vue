@@ -5,11 +5,13 @@
         <v-col>
           <el-input v-model="filterText" placeholder="Filter keyword"/>
           <el-tree
+              ref="tree"
               :data="categoryList"
               :props="props"
               accordion
               lazy
-              :load="loadChildren"/>
+              :load="loadChildren"
+              :filter-node-method="filterNode"/>
         </v-col>
       </v-row>
     </v-container>
@@ -18,10 +20,11 @@
 
 <script setup>
 import axios from 'axios'
-import {reactive, ref} from "vue";
+import {reactive, ref, watch} from "vue";
 
 const categoryList = reactive([])
-const filterText = ref('')
+const filterText = ref(null)
+const tree = ref(null)
 
 const props = {
   label: 'name',         // 指定节点标签为节点对象的某个属性值
@@ -48,6 +51,17 @@ const getCategoryList = (pid) => {
   })
 };
 getCategoryList(0);
+
+// 监听输入框的过滤条件
+watch( (filterText), (val) => {
+  tree.value.filter(val);
+})
+
+// 父节点过滤
+const filterNode = (value, data) => {
+  if (!value) return true;
+  return data.name.indexOf(value) !== -1;
+}
 
 // 子分类懒加载
 const loadChildren = (node, resolve) => {   // node为当前点击的节点，resolve为数据加载完成的回调(必须调用)
