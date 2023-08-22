@@ -38,5 +38,5 @@
    map和reduce
       let arr = ['2', '5', '7', '-8', '-6'];
       let arr2 = arr.map(s => parseInt(s));   ===>   arr2=[2, 5, 7, -8, -6]
-      arr2.reduce((a,b) => a+b)    ===> 相当于a=2,b=5,进行a+b操作即2+5=7，再将7做为a，进行后续的加法
+      arr2.reduce((a,b) => a+b)    ===> 相当于a = 2,b = 5,进行a+b操作即2+5=7，再将7做为a，进行后续的加法
       arr2.reduce((a,b) => a*b, 0)  ===> 结果为0

@@ -2,13 +2,13 @@
   <div>
     <h2>Vue3中setup详解</h2>
     <h2>{{ userName }}</h2>
-    <h2>{{param}}</h2>
-    <h2>{{paramGetSet}}</h2>
+    <h2>{{ param }}</h2>
+    <h2>{{ paramGetSet }}</h2>
     <button @click="setupVue3">setup按钮</button>
   </div>
   <setup-children @sendEmit="sendDate" :sendProps="data" ref="sonText"></setup-children>
   <br>
-  <h1 v-if="parent.value!==undefined" >{{ parent.value }}</h1>
+  <h1 v-if="parent.value !== undefined" >{{ parent.value }}</h1>
 </template>
 
 <script setup>  // <script setup> 这种语法糖是不需要属性跟方法有返回值的
@@ -58,7 +58,7 @@ const paramGetSet = computed( {
 const func1= () => {
   console.log("func1");
 }
-func1();  //因为setup即相当于created:
+func1();  // 因为setup即相当于created:
 
 </script>
 

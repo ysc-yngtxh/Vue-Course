@@ -59,7 +59,8 @@ const submitForm = (formEl) => {
       // 用户名密码输入完成后发送请求，判断是否登录成功
       // post有三个参数-->url,data,config
       // TODO 异步请求写法一
-/**      axios.post('/home/login', {
+      /**
+      axios.post('/home/login', {
         username: ruleForm.username,
         password: ruleForm.password
       }, {
@@ -75,7 +76,8 @@ const submitForm = (formEl) => {
         } else {
           console.log(res.data.message)
         }
-      })*/
+      })
+      */
 
       // TODO 异步请求方法二
       postRequired('/login', {
