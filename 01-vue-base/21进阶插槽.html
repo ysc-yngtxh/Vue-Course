@@ -5,13 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-//第一种
+//  第一种
 <myDiv>
     A
     <slot></slot>
     B
 </myDiv>
-//使用
+// 使用
 <template>
     <myDiv>AA</myDiv>
 </template>
@@ -21,11 +21,11 @@
         B
 */
 
-//第二种
+// 第二种
 <myDiv>
     <slot> 定义默认内容 </slot>
 </myDiv>
-//使用
+// 使用
 <template>
     <myDiv></myDiv>
     <myDiv>AA</myDiv>
@@ -35,7 +35,7 @@
        AA
 */
 
-//第三种
+// 第三种
 <myDiv>
     A
     <slot name='top'></slot>
@@ -44,7 +44,7 @@
     C
     <slot name='bottom'></slot>
 </myDiv>
-//使用
+// 使用
 <template>
     <myDiv>
         <div slot='middle'>mmm</div>
@@ -57,7 +57,7 @@
      C
 */
 
-//第四种
+// 第四种
 <template id="abc">
     <div>
         AA

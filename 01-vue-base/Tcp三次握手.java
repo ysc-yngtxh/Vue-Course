@@ -26,6 +26,6 @@ Tcp四次挥手：
    为什么需要四次挥手？Tcp是全双工模式。
 
    1、当client发出FIN报文段时，只是表示client已经没有数据要发送了，client告诉server，他的数据已经全部发送完毕；但是，这个时候client还是可以接受来server的数据；
-   2、当server返回ACK报文段时，表示他已经知道client没有数据发送了，但是server还是可以到那个数据到client的；
+   2、当server返回ACK报文段时，表示他已经知道client没有数据发送了，但是server还是可以发送数据到client的；
    3、当server也发送了FIN报文段时，这个时候就表示server也没有数据要发送了，就会告诉client，我也没有数据要发送了，
    4、如果收到client确认报文段，之后彼此就会愉快的终端这次TCP连接
