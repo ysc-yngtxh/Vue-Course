@@ -2,9 +2,9 @@ import axios from 'axios';
 import {ElMessage} from 'element-plus';
 import router from '../router'
 
-//响应拦截器
+// 响应拦截器
 axios.interceptors.response.use(response => {
-    //业务逻辑错误
+    // 业务逻辑错误
     if (response.status === 200) {
         if (response.data.code === 110 || response.data.code === 111 || response.data.code === 401 || response.data.code === 402 || response.data.code === 403 || response.data.code === 404) {
             ElMessage.error(response.data.message);
@@ -13,13 +13,13 @@ axios.interceptors.response.use(response => {
         }
     } else if (response.status === 401) {
         ElMessage.error(response.data.message);
-        return Promise.resolve(response);//有时需要将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用。
+        return Promise.resolve(response); // 有时需要将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用。
     } else if (response.status === 407) {
         ElMessage.error(response.data.message);
         router.replace('/');
     }
     return response;
-    //return Promise.resolve(response);
+    // return Promise.resolve(response);
 }, error => {
     if (error.response.code === 504 || error.response.code === 404) {
         ElMessage.error('服务器被吃了╮(╯▽╰)╭');
@@ -38,7 +38,7 @@ axios.interceptors.response.use(response => {
 })
 
 
-//传送json格式的post请求
+// 传送json格式的post请求
 export const postRequired = (url, params, token) => {
     return axios({
         method: 'post',
@@ -46,7 +46,7 @@ export const postRequired = (url, params, token) => {
         data: params,
         headers: {
             'Content-Type': "application/json;charset=UTF-8",
-            //把token放到请求头才能请求，这里的'Bearer '表示是后台希望更加的安全，依据后台给的信息看到底是加还是不加
+            // 把token放到请求头才能请求，这里的'Bearer '表示是后台希望更加的安全，依据后台给的信息看到底是加还是不加
             'Authorization': /*'Bearer ' +*/ token,
         }
     })

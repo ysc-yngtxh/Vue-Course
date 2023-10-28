@@ -39,11 +39,11 @@
     },
     data() {
       return {
-        valid: false, // 表单校验结果标记
+        valid: false,     // 表单校验结果标记
         brand: {
-          name: '', // 品牌名称
-          letter: '', // 品牌首字母
-          image: '',// 品牌logo
+          name: '',       // 品牌名称
+          letter: '',     // 品牌首字母
+          image: '',      // 品牌logo
           categories: [], // 品牌所属的商品分类数组
         },
         nameRules: [
@@ -90,7 +90,7 @@
       }
     },
     watch: {
-      oldBrand: {// 监控oldBrand的变化
+      oldBrand: { // 监控oldBrand的变化
         handler(val) {
           if (val) {
             // 注意不要直接复制，否则这边的修改会影响到父组件的数据，copy属性即可
