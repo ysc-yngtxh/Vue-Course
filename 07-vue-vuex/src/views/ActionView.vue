@@ -8,6 +8,7 @@
               :src="item.url"
               class="image"
               referrerpolicy="no-referrer"
+              :alt="item.title"
           />
         </el-card>
       </li>
@@ -19,16 +20,14 @@
 export default {
   methods:{
     onImages (){
-      this.$store.dispatch('updateJoke')
+      this.$store.dispatch('updateImage')
     }
   }
 
 }
-
 </script>
 
 <style>
-
 ul {
   list-style: none;
 }

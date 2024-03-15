@@ -15,7 +15,10 @@
         <product-com v-for="(item,index) in proList" :product="item" :key="index"></product-com>
 
         <!--从子组件传值到父组件($emit())-->
-        <school-ysc v-for="(item,index) in schoolList" @cschool='changeEvent' :key="'abc'+index" :index='index'
+        <!--@ 表示子组件 cschool方法 绑定父组件 changeEvent方法-->
+        <!--: 表示子组件 school-name属性 绑定父组件遍历的值 item-->
+        <school-ysc v-for="(item,index) in schoolList" :key="'abc'+index" :index='index'
+                    @cschool='changeEvent'
                     :school-name="item"></school-ysc>
     </ul>
 
@@ -61,7 +64,7 @@
             }
         }
     })
-    //根组件
+    // 根组件
     let app = new Vue({
         el: "#app",
         data: {

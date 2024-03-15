@@ -6,138 +6,137 @@
     <title>Document</title>
 </head>
 <body>
-    <!--
-        事件修饰符：
-          .stop: 阻止冒泡事件向上传递。比如：没有加上这个修饰符时候，点击按钮会打印两处事件。但是加上这个修饰符可以让div里的点击事件不发生
-          .prevent: 阻止默认事件的发生。比如：加上这个修饰符可以让表单里的提交按钮失效，不具备提交功能。
-          .self: .stop和.self的区别，前者是防止事件冒泡，后者则是忽略了事件冒泡和事件捕获的影响。
-          .once: 只触发一次的修饰符。像在一些抽奖活动上可以使用
-        键盘事件：
-          @click: 点击事件
-          @keydown.enter: 回车事件
-          exact: 表示精准事件。比如在以下的事件中，我按住shift+ctrl键并点击，会触发事件。
-                 但是加上exact修饰符后，再按住shift+ctrl键并点击，不会触发事件。只有按住ctrl键并点击，才会触发事件
-        鼠标事件：
-          .left
-          .right
-          .middle
-        修饰符：
-          .lazy: 默认情况下，就是没有.lazy修饰符时，事件触发的输入值与数据是同步更新的。
-                 加上修饰符后就变为失去光标才会更新数据
-          .number: 可以将用户的输入值转为数值类型
-          .trim: 自动过滤用户输入的首尾空白字符
-          “:” 是指令 “v-bind”的缩写:可以绑定一个变量或者有返回值的函数
-          “@”是指令“v-on”的缩写:绑定一个函数，执行业务逻辑。指令绑定事件后，就会监听相应的事件
-          $event：使用它可以访问原生 DOM 事件。比如$event.target表示当前目标的DOM对象
-          
-    -->
-    <div id="app">
-        <div class="btnParent" @click="clickParent">
-            <button @click.stop="clickEvent">按钮</button>
-        </div>
+<!--
+    事件修饰符：
+      .stop: 阻止冒泡事件向上传递。比如：没有加上这个修饰符时候，点击按钮会打印两处事件。但是加上这个修饰符可以让div里的点击事件不发生
+      .prevent: 阻止默认事件的发生。比如：加上这个修饰符可以让表单里的提交按钮失效，不具备提交功能。
+      .self: .stop和.self的区别，前者是防止事件冒泡，后者则是忽略了事件冒泡和事件捕获的影响。
+      .once: 只触发一次的修饰符。像在一些抽奖活动上可以使用
+    键盘事件：
+      @click: 点击事件
+      @keydown.enter: 回车事件
+      exact: 表示精准事件。比如在以下的事件中，我按住shift+ctrl键并点击，会触发事件。
+             但是加上exact修饰符后，再按住shift+ctrl键并点击，不会触发事件。只有按住ctrl键并点击，才会触发事件
+    鼠标事件：
+      .left
+      .right
+      .middle
+    修饰符：
+      .lazy: 默认情况下，就是没有.lazy修饰符时，事件触发的输入值与数据是同步更新的。
+             加上修饰符后就变为失去光标才会更新数据
+      .number: 可以将用户的输入值转为数值类型
+      .trim: 自动过滤用户输入的首尾空白字符
+      “:” 是指令 “v-bind”的缩写:可以绑定一个变量或者有返回值的函数
+      “@”是指令“v-on”的缩写:绑定一个函数，执行业务逻辑。指令绑定事件后，就会监听相应的事件
+      $event：使用它可以访问原生 DOM 事件。比如$event.target表示当前目标的DOM对象
+-->
+<div id="app">
+    <div class="btnParent" @click="clickParent">
+        <button @click.stop="clickEvent">按钮</button>
+    </div>
 
-        <form action="" method="post">
-            <!--双向绑定v-model-->
-            <input type="text" @keydown.enter="searchWeather" v-model="city"/>
-            <input @click.prevent="searchWeather" type="submit" value="提交"/>
-        </form>
-        <div>
-            <h1>{{temp}}</h1>
-            <h3>{{brief}}</h3>
-        </div>
+    <form action="" method="post">
+        <!--双向绑定v-model-->
+        <input type="text" @keydown.enter="searchWeather" v-model="city"/>
+        <input @click.prevent="searchWeather" type="submit" value="提交"/>
+    </form>
+    <div>
+        <h1>{{temp}}</h1>
+        <h3>{{brief}}</h3>
+    </div>
 
-        <h5>只触发一次的修饰符</h5>
-        <button @click.once="onceEvent">只触发一次</button>
+    <h5>只触发一次的修饰符</h5>
+    <button @click.once="onceEvent">只触发一次</button>
 
-        <button @click.ctrl.exact="onceExact">按住ctrl点击</button>
+    <button @click.ctrl.exact="onceExact">按住ctrl点击</button>
 
-        <h2>{{username}}</h2>
-        <h2>单行文本输入框</h2>
-        <input type="text" v-model="username" value=""/>
-        <h2>多行文本输入框</h2>
-        <textarea rows="" cols="" v-model="username"></textarea>
+    <h2>{{username}}</h2>
+    <h2>单行文本输入框</h2>
+    <input type="text" v-model="username" value=""/>
+    <h2>多行文本输入框</h2>
+    <textarea rows="" cols="" v-model="username"></textarea>
 
-        <h1>复选框：选择喜欢的水果</h1>
-        <span v-for="item in fruits">
+    <h1>复选框：选择喜欢的水果</h1>
+    <span v-for="item in fruits">
             <input type="checkbox" v-model="checkFruits" :value="item" checked>
             {{item}}
         </span>
-        <h2>{{checkFruits}}</h2>
+    <h2>{{checkFruits}}</h2>
 
-        <h1>单选框：选择喜欢的水果</h1>
-        <span v-for="item in fruits">
+    <h1>单选框：选择喜欢的水果</h1>
+    <span v-for="item in fruits">
             <input type="radio" v-model="checkFruit" :value="item" checked>
             {{item}}
         </span>
-        <h2>{{checkFruit}}</h2>
+    <h2>{{checkFruit}}</h2>
 
-        <h1>选项框：选择居住的城市(单选)</h1>
-        <select v-model="checkCity">
-            <option v-for="item in checkCitys" :value="item" selected>{{item}}</option>
-        </select>
-        <h2>{{checkCity}}</h2>
+    <h1>选项框：选择居住的城市(单选)</h1>
+    <select v-model="checkCity">
+        <option v-for="item in checkCities" :value="item" selected>{{item}}</option>
+    </select>
+    <h2>{{checkCity}}</h2>
 
-        <h1>选项框：选择喜欢的城市(多选)</h1>
-        <select v-model="checkCity" multiple>
-            <option v-for="item in checkCitys" :value="item" selected>{{item}}</option>
-        </select>
-        <h2>{{checkCity}}</h2>
-    </div>
+    <h1>选项框：选择喜欢的城市(多选)</h1>
+    <select v-model="checkCity" multiple>
+        <option v-for="item in checkCities" :value="item" selected>{{item}}</option>
+    </select>
+    <h2>{{checkCity}}</h2>
+</div>
 
-    <script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-      // 配置案件的自定义修饰符
-      // Vue.config.keyCode.F1 = 112;  //f1的键值是112
-      let app = new Vue({
-          el:"#app",
-          data:{
-              city:"广州",
-              temp:"",
-              brief:"", 
-              username:"小明",
-              fruits:['苹果','桃子','香蕉','西瓜'],
-              checkFruits:[],
-              checkFruit:"",
-              checkCitys:['北京','上海','武汉','成都','南昌'],
-              checkCity:['武汉']
-          },
-          methods:{
-              clickEvent:function(event){
-                  console.log("clickEvent")
-              },
-              clickParent:function(){
-                  console.log("clickParent");
-              },
-              searchWeather: async function(){
-                  console.log("查询天气");
-                  //城市相关信息API
-                  let citys = `https://geoapi.qweather.com/v2/city/lookup?location=${this.city}&key=f83cf5800baf480fa4c3bc6a474ffd90`
-                  //异步获取
-                  let res1 = await fetch(citys)
-                  //转为json格式
-                  let result1 = await res1.json()
-                  //获取城市id
-                  let id = result1.location[0].id;
-                  //城市天气详情
-                  let httpUrl = `https://devapi.qweather.com/v7/weather/now?location=${id}&key=f83cf5800baf480fa4c3bc6a474ffd90`;
-                  //异步获取
-                  let res2 = await fetch(httpUrl)
-                  //转为json格式
-                  let result2 = await res2.json()
-                  //打印输出
-                  console.log(result2)
-                  this.temp = result2.now.temp+"摄氏度"
-                  this.brief = result2.now.text
-              },
-              onceEvent:function(){
-                  console.log("只触发一次");
-              },
-              onceExact:function(){
-                  console.log("按住ctrl点击");
-              }
-          }
-      })
-    </script>
+<script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    // 配置案件的自定义修饰符
+    // Vue.config.keyCode.F1 = 112;  // f1的键值是112
+    let app = new Vue({
+        el: "#app",
+        data: {
+            city: "广州",
+            temp: "",
+            brief: "",
+            username: "小明",
+            fruits: ['苹果', '桃子', '香蕉', '西瓜'],
+            checkFruits: [],
+            checkFruit: "",
+            checkCities: ['北京', '上海', '武汉', '成都', '南昌'],
+            checkCity: ['武汉']
+        },
+        methods: {
+            clickEvent: function (event) {
+                console.log("clickEvent")
+            },
+            clickParent: function () {
+                console.log("clickParent");
+            },
+            searchWeather: async function () {
+                console.log("查询天气");
+                // 城市相关信息API
+                let citys = `https://geoapi.qweather.com/v2/city/lookup?location=${this.city}&key=f83cf5800baf480fa4c3bc6a474ffd90`
+                // 异步获取
+                let res1 = await fetch(citys)
+                // 转为json格式
+                let result1 = await res1.json()
+                // 获取城市id
+                let id = result1.location[0].id;
+                // 城市天气详情
+                let httpUrl = `https://devapi.qweather.com/v7/weather/now?location=${id}&key=f83cf5800baf480fa4c3bc6a474ffd90`;
+                // 异步获取
+                let res2 = await fetch(httpUrl)
+                // 转为json格式
+                let result2 = await res2.json()
+                // 打印输出
+                console.log(result2)
+                this.temp = result2.now.temp + "摄氏度"
+                this.brief = result2.now.text
+            },
+            onceEvent: function () {
+                console.log("只触发一次");
+            },
+            onceExact: function () {
+                console.log("按住ctrl点击");
+            }
+        }
+    })
+</script>
 </body>
 </html>

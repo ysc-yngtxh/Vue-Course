@@ -39,8 +39,8 @@
           methods:{
               changeEvent:function(data){
                   console.log("触发学校选择事件");
-                  //这种做法其实就是获取所有的子组件数据，进行获取赋值。
-                  //但是这种做法高耦合，违背设计理念。尽量不使用
+                  // 这种做法其实就是获取所有的子组件数据，进行获取赋值。
+                  // 但是这种做法高耦合，违背设计理念。尽量不使用
                   console.log(this.$children[data].schoolName);
                   this.chooseSchool = this.$children[data].schoolName
               }

@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 const routes = [
@@ -18,7 +18,7 @@ const routes = [
         name: 'About',
         component: () => import('../views/AboutView.vue'),
         // 路由元信息
-        meta: { requiredAuth: true, isAuth: false },
+        meta: {requiredAuth: true, isAuth: false},
         // about路由独享守卫： 就只针对about路由进行导航守卫
         beforeEnter: (to, from, next) => {
             console.log('/about独享事件')

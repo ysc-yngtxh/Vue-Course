@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import Home from '@/views/HomeView.vue'
 import AsideComponent from '@/components/AsideComponent.vue'
 import NavComponent from '@/components/NavComponent.vue'
@@ -9,7 +9,7 @@ import ImagePath from '@/components/children/ImagePath.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     components: {
       AsideComponent,
       NavComponent,
@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -90,7 +90,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),  // 如果使用该项目路径含有#，则使用 createWebHashHistory()；不含则使用createWebHashHistory()
+  history: createWebHistory(),  // 如果使用createWebHashHistory(),该项目路径中含有 /#/
   routes
 })
 

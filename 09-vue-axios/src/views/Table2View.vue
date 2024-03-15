@@ -29,7 +29,7 @@
           :total="state.total"
           :page-sizes="[5, 10, 20, 30]"
           @current-change="handleCurrentChange"
-          @size-change="handleSizeChange" />
+          @size-change="handleSizeChange"/>
     </div>
   </div>
 
@@ -69,7 +69,7 @@ export default {
     this.tableNum()
   },
   methods: {
-    //双击单元格
+    // 双击单元格
     doubleClick(row, column, cell, event) {
       console.log(row, column, cell, event)
       if (column.property === 'id' || column.property === 'username') {
@@ -176,8 +176,6 @@ export default {
     }
   },
 }
-
-
 </script>
 
 <style scoped>

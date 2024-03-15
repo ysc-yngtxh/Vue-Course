@@ -45,7 +45,10 @@
             create() {
                 this.name = "hello,word! 我出生了！";
                 // 定时任务，两秒后重新赋值进行覆盖
-                setTimeout(() => this.name = "<font color='#ff7f50'>我穿越了</font>", 2000);
+                setTimeout(() => {
+                    this.name = "<font color='#ff7f50'>我穿越了</font>"
+                    setTimeout(() => this.name = "<font color='#fff1589'>定时任务关闭</font>", 2000)
+                }, 2000);
             }
         }
     })

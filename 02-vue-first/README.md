@@ -1,4 +1,4 @@
-# 01-vue-first
+# 02-vue-first
 
 ## Project setup
 ```

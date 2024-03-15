@@ -8,6 +8,7 @@
               :src="item.url"
               class="image"
               referrerpolicy="no-referrer"
+              :alt="item.title"
           />
         </el-card>
       </li>
@@ -18,7 +19,8 @@
 </template>
 
 <script>
-import {mapState,mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
+
 export default {
   computed:{
     ...mapState(['images'])

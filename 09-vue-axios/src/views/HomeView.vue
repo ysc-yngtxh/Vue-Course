@@ -46,7 +46,7 @@ const ruleForm = reactive({
   username: '',
   password: '',
 })
-//表单验证规则
+// 表单验证规则
 const rules = reactive({
   username: [{validator: validateUsername, trigger: 'blur'}],
   password: [{validator: validatePassword, trigger: 'blur'}],

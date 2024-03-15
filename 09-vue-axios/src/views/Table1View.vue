@@ -6,13 +6,14 @@
               @sort-change="sortChange">
       <!-- sortable默认仅在当前页的数据进行排序 -->
       <el-table-column sortable prop="id" label="UserId" width="150" align="center"/>
-      <el-table-column prop="username" label="UserName" width="350" align="center"/>
-      <el-table-column prop="password" label="PassWord" width="200" align="center"/>
+      <el-table-column prop="userName" label="UserName" width="350" align="center"/>
+      <el-table-column prop="passWord" label="PassWord" width="200" align="center"/>
       <el-table-column prop="phone" label="Phone" width="250" align="center"/>
       <el-table-column prop="address" label="Address" width="350" align="center"/>
       <el-table-column label="Operate" align="center">
         <template v-slot="ope">
-          <el-button @click="editUser(ope.row, ope.column, ope.$index)" getSelectionRows type="primary" circle style="width: 42.4px">
+          <el-button @click="editUser(ope.row, ope.column, ope.$index)" getSelectionRows type="primary" circle
+                     style="width: 42.4px">
             <el-icon>
               <Edit/>
             </el-icon>
@@ -169,7 +170,7 @@ export default {
       this.dialogFormVisible = false
     },
     // 逻辑删除用户数据
-    deletePost( row, column, index ) {
+    deletePost(row, column, index) {
       console.log(row)
       console.log(column)
       console.log(index)
@@ -212,8 +213,6 @@ export default {
     }
   },
 }
-
-
 </script>
 
 <style scoped>

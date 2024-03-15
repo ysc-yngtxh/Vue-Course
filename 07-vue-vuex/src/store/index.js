@@ -1,4 +1,3 @@
-
 import {createStore} from 'vuex'
 
 // 创建整个项目的数据仓库对象，将多组件公用的数据放置到此对象里
@@ -19,7 +18,7 @@ export default createStore({
   },
   // 类似于methods，在mutation里处理状态
   mutations: {
-    reversePhone(state, val) {
+    reversePhone1(state, val) {
       console.log(val)
       let num = val.toString().split('').reverse().join('');
       console.log(num)
@@ -43,12 +42,12 @@ export default createStore({
      * 1、在public/index.html中添加：<meta name="referrer" content="no-referrer">
      * 2、在img标签中添加：<img referrerpolicy="no-referrer" src="xx"/>
      */
-    updateJoke(context){
+    updateImage(context){
       let url = 'https://api.apiopen.top/api/getImages?size=16';
       fetch(url).then(res=>res.json()).then(res=>{
         const images = res.result.list
         console.log(images)
-        context.commit('setImages',images)
+        context.commit('setImages', images)
       })
     }
   },

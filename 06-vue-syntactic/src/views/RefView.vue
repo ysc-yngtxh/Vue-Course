@@ -10,8 +10,10 @@
   </div>
 </template>
 
+<!--选项式API：可以使用包含多个选项的对象来描述组件的逻辑，例如 data、methods 和 mounted。
+              选项所定义的属性都会暴露在函数内部的 this 上，它会指向当前的组件实例。-->
 <script>
-import {ref, toRefs, isRef, reactive} from 'vue'
+import {isRef, reactive, ref, toRefs} from 'vue'
 
 export default {
   name: 'App',
@@ -33,10 +35,10 @@ export default {
 
     // 死死记住：ref本质也是reactive，ref(obj)等价于reactive({value: obj})
     const dump = ref('setDump')
-    console.log('isRef()方法-------' + isRef(dump))  // 判断是否是一个Ref类型数据
+    console.log('isRef()方法-------' + isRef(dump))     // 判断是否是一个Ref类型数据
     console.log("获取ref('setDump')----" + dump.value)  // 获取dump值
 
-    // def定义对象使用{}键值对形式
+    // ref定义对象使用{}键值对形式
     const dump2 = ref({'a': 'dump2'})
     console.log("获取ref({'a': 'dump2'})----" + dump2.value.a)
 
@@ -67,9 +69,9 @@ export default {
 
     const handleClick = () => {
       // 此时可以通过info变量操作DOM
-      console.log('获取info元素节点上的执行HTML ---- '+info.value.innerHTML)
+      console.log('获取info元素节点上的执行HTML ---- ' + info.value.innerHTML)
 
-      console.log('获取fruit元素节点上的执行HTML ---- '+fruit.value[1].innerHTML)
+      console.log('获取fruit元素节点上的执行HTML ---- ' + fruit.value[1].innerHTML)
     }
 
     // setup()把变量返回给模板使用

@@ -1,4 +1,4 @@
-<template>
+<template id="app">
   <!--导航栏-->
   <router-view name="AsideComponent"/>
   <!--侧边栏-->

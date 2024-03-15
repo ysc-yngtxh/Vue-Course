@@ -5,16 +5,12 @@
   </div>
 </template>
 
+<!--组合式API：可以使用导入的 API 函数来描述组件逻辑。在单文件组件中，组合式 API 通常会与 <script setup> 搭配使用。
+              这个 setup 是一个标识，告诉 Vue 需要在编译时进行一些处理，让我们可以更简洁地使用组合式 API。
+              比如，<script setup> 中的导入和顶层变量/函数都能够在模板中直接使用。-->
 <script setup>
 import HelloWorld from '@/components/HelloWorld.vue'
+
 const context = define
 
 </script>
-
-setup () 是vue3新增加的组件。简单点来说，就是vue2里面的data，method，computed···全不要啦，所有数据方法全写在setup里
-<script setup> 其实是使用组合式 API 的编译时语法糖。相比于普通的 <script> 语法，它具有更多优势：
-
-更少的样板内容，更简洁的代码。
-能够使用纯 Typescript 声明 props 和抛出事件。
-更好的运行时性能 (其模板会被编译成与其同一作用域的渲染函数，没有任何的中间代理)。
-更好的 IDE 类型推断性能 (减少语言服务器从代码中抽离类型的工作)

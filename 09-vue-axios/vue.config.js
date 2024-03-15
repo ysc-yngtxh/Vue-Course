@@ -57,10 +57,10 @@ module.exports = defineConfig({
   devServer: {
     port: 8081, // 端口
     proxy: {
-      '/home': {  //   若请求的前缀不是这个'/api'，那请求就不会走代理服务器
-        target: 'http://localhost:8080',  // 这里写路径
-        pathRewrite:{'^/home':'/api/user'}, // 将所有含/api路径的，去掉/api转发给服务器
-        ws: false,  // 用于支持webSocket,这里暂时用不上
+      '/home': {  // 若请求的前缀不是这个'/home'，那请求就不会走代理服务器
+        target: 'http://localhost:8080',    // 这里写路径
+        pathRewrite:{'^/home':'/api/user'}, // 将任何层级下的 '/home' 路径替换为' /api/user' 转发给服务器
+        ws: false,           // 用于支持webSocket,这里暂时用不上
         changeOrigin: true   // 解决跨域,用于控制请求头中的host值
       },
     }
