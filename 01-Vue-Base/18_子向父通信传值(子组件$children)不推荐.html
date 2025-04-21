@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!--父传子方法对象-->
+            <school-ysc v-for="item,index in schoolList" :key="'abc'+index" :index='index' :school-name="item"></school-ysc>
+        </ul>
+
+        <h2>选中的学校是：{{chooseSchool}}</h2>
+    </div>
+
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        // 自定义组件,从父组件传方法到子组件
+        let schoolysc = Vue.component("school-ysc", {
+            props: ['schoolName', 'index', 'action'],
+            template: `<li>
+                          <h3>{{index}}--学校名称：{{schoolName}}</h3>
+                          <button @click="$parent.changeEvent(index)">选择学校</button>
+                       </li>`,
+        })
+        // 根组件
+        let app = new Vue({
+            el: "#app",
+            data: {
+                schoolList: ['清华', '北大', '浙大', '中大'],
+                chooseSchool: "",
+            },
+            components: {
+                "school-ysc": schoolysc
+            },
+            methods: {
+                changeEvent: function (data) {
+                    console.log("触发学校选择事件");
+                    // 这种做法其实就是获取所有的子组件数据，进行获取赋值。
+                    // 但是这种做法高耦合，违背设计理念。尽量不使用
+                    console.log(this.$children[data].schoolName);
+                    this.chooseSchool = this.$children[data].schoolName
+                }
+            },
+            mounted() {
+                console.log(this.$children);
+            },
+        })
+    </script>
+</body>
+</html>

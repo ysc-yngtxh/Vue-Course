@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <counter></counter>
+        <counter></counter>
+        <counter></counter>
+        <ul>
+            <!--从父组件传值到子组件(props)-->
+            <product-com v-for="(item,index) in proList" :product="item" :key="index"></product-com>
+
+            <!--从子组件传值到父组件($emit())-->
+            <!--@ 表示子组件 cschool方法 绑定父组件 changeEvent方法-->
+            <!--: 表示子组件 school-name属性 绑定父组件遍历的值 item-->
+            <school-ysc v-for="(item,index) in schoolList" :key="'abc'+index" :index='index'
+                        @cschool='changeEvent'
+                        :school-name="item"></school-ysc>
+        </ul>
+
+        <h2>选中的学校是：{{chooseSchool}}</h2>
+    </div>
+
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        // 定义全局组件：就是说这个标签内容在跳转其他页面后一样有效
+        const counter = Vue.component("counter", {
+            template: "<button @click='count++'>点我试试，点了我{{count}}次，很好，我记住你了！</button>",
+            data() {      // data这里定义成一个方法是因为需要一个返回值，避免去影响本页面的其他的counter标签，要不然就乱套了
+                return {
+                    count: 0
+                }
+            }
+        });
+        // 自定义组件1,从父组件传值到子组件
+        let productcom = Vue.component("product-com", {
+            props: ['product'],  // 可以通过props进行赋值
+            template: `
+                       <li>
+                          <h3>产品名称：{{product.title}}</h3>
+                          <h4>产品描述：{{product.brief}}</h4>
+                          <p>产品价格：{{product.price}}</p>
+                       </li>`,
+        })
+        // 自定义组件2,从子组件传值到父组件
+        let schoolysc = Vue.component("school-ysc", {
+            props: ['schoolName', 'index'],
+            template: `<li>
+                          <h3>{{index}}--学校名称：{{schoolName}}</h3>
+                          <button @click="chooseEvent(schoolName)">选择学校</button>
+                       </li>`,
+            methods: {
+                chooseEvent: function (schoolName) {
+                    console.log(schoolName);
+                    // 想要将子元素的数据传递给父元素，需要自定义触发事件，实现数据的传值
+                    // 触发一个名称叫做cschool事件
+                    this.$emit('cschool', schoolName)
+                    // $emit:触发当前实例上的事件,并且把值传给@cschool。附加参数都会传给监听器回调。
+                }
+            }
+        })
+        // 根组件
+        let app = new Vue({
+            el: "#app",
+            data: {
+                proList: [
+                    {
+                        title: "产品1",
+                        price: "10",
+                        brief: "产品描述1"
+                    },
+                    {
+                        title: "产品2",
+                        price: "20",
+                        brief: "产品描述2"
+                    },
+                    {
+                        title: "产品3",
+                        price: "30",
+                        brief: "产品描述3"
+                    },
+                    {
+                        title: "产品4",
+                        price: "40",
+                        brief: "产品描述4"
+                    },
+                ],
+                schoolList: ['清华', '北大', '浙大', '中大'],
+                chooseSchool: "",
+            },
+            components: {   // 前面表示的是counter标签， 后面表示的是counter对象
+                counter: counter,
+                'product-com': productcom,
+                "school-ysc": schoolysc
+            },
+            methods: {
+                changeEvent: function (data) {
+                    console.log("触发学校选择事件");
+                    this.chooseSchool = data
+                }
+            },
+        })
+    </script>
+</body>
+</html>

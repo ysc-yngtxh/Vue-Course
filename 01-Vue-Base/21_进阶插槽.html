@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--第一种-->
+    <myDiv>
+        A
+        <slot></slot>
+        B
+    </myDiv>
+    <template>
+        <myDiv>AA</myDiv>
+    </template>
+    <!--输出：A
+             AA
+             B
+    -->
+
+    <!--第二种-->
+    <myDiv>
+        <slot>定义默认内容</slot>
+    </myDiv>
+    <template>
+        <myDiv></myDiv>
+        <myDiv>AA</myDiv>
+    </template>
+    <!--输出：定义默认内容
+             AA
+    -->
+
+    <!--第三种-->
+    <myDiv>
+        A
+        <slot name='top'></slot>
+        B
+        <slot name='middle'></slot>
+        C
+        <slot name='bottom'></slot>
+    </myDiv>
+    <template>
+        <myDiv>
+            <div slot='middle'>mmm</div>
+        </myDiv>
+    </template>
+    <!--输出：A
+             B
+             mmm
+             C
+    -->
+
+    <!--第四种-->
+    <template id="abc">
+        <div>
+            AA
+            <slot :customName="mydata">
+                <div>{{mydata}}}</div>
+            </slot>
+            BB
+        </div>
+    </template>
+
+    <div id="app">
+        <my-component>
+            <template slot-scope="username"><!--slot-scope表示的是抽象的插槽，从而获取指定插槽中的数据-->
+                <!--Vue3中表示的v-slot效果一样-->
+                <div>{{username.customName}}</div>
+            </template>
+        </my-component>
+    </div>
+
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        const app = new Vue({
+            el: "#app",
+            data: {
+                msg: 'm1',
+            },
+            components: {
+                myComponent: {
+                    template: '#abc',
+                    data() {
+                        return {
+                            mydata: ['a1', 'a2', 'a3']
+                        }
+                    }
+                },
+            },
+        })
+    </script>
+</body>
+</html>

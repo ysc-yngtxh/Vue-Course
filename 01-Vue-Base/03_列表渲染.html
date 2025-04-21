@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,key) in students">
+                <h4>索引值：{{key}}---学生名字：{{item.studentName}}</h4>
+                <p>年龄：{{item.age}}---学校：{{item.school}}</p>
+            </li>
+        </ul>
+
+        <h3>条件+循环渲染</h3>
+        <ol>
+            <li v-for="(item,index) in students" v-if="item.age%2===0">
+                <h4>索引值：{{index}}-------{{item.studentName}}</h4>
+                <p>年龄：{{item.age}}-----学校：{{item.school}}</p>
+            </li>
+        </ol>
+
+        <!--src前的冒号用以绑定事件，冒号全称：v-bind-->
+        <img src="" :src="students[0].imgHeader" alt=""/>
+    </div>
+
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        let app = new Vue({
+            el: "#app",
+            data: {
+                starts: ['蔡徐坤', '笋子肉', '水方言', '彭十六', '周子然'],
+                students: [
+                    {
+                        studentName: "小明",
+                        age: 16,
+                        school: "清华",
+                        imgHeader: "http://pic.616pic.com/ys_bnew_img/00/14/04/Lk7LC48b2O.jpg"
+                    },
+                    {
+                        studentName: "小红",
+                        age: 17,
+                        school: "北大",
+                    },
+                    {
+                        studentName: "小黑",
+                        age: 18,
+                        school: "华科",
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
