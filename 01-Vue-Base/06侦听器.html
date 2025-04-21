@@ -6,22 +6,22 @@
     <title>Document</title>
 
     <style type="text/css">
-      #boxA{
-          width: 100px;
-          height: 100px;
-          color: darkgray;
-      }
-      #boxB{
-          width: 100px;
-          height: 100px;
-          color: darkgray;
-      }
-      .red {
-          background-color: #f32f2f;
-      }
-      .blue{
-          background: #39b9ee;
-      }
+        #boxA {
+            width: 100px;
+            height: 100px;
+            color: darkgray;
+        }
+        #boxB {
+            width: 100px;
+            height: 100px;
+            color: darkgray;
+        }
+        .red {
+            background-color: #f32f2f;
+        }
+        .blue {
+            background: #39b9ee;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +43,8 @@
         <button @click="active = 'blue'">蓝色</button>
         <div id="boxA" v-bind:class="active">
             我是盒子boxA
-        </div><br>
+        </div>
+        <br>
 
         <!--通过点击事件改变响应数据isTrue的布尔值
             然后:class="{red: isTrue, blue: !isTrue}"中就只会存在一个-->
@@ -54,51 +55,51 @@
 
     </div>
 
-    <script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      let app = new Vue({
-          el: "#app",
-          data: {
-              msg: "Hello Vue",
-              arr: ['小明', '小红', '小黑'],
-              birthday: 1699932123201,    //毫秒值
-              active: "",
-              isTrue: true,
-              person: {
-                  name: "Jack",
-                  age: 21
-              }
-          },
-          computed: {
-              reverseMsg: {
-                  get:function(){
-                      return this.msg.split("").reverse().join("")
-                  },
-                  set:function(value){
-                      console.log(value)
-                      this.msg = value.split("").reverse().join("")
-                  }
-              },
-              birth() {
-                  const day = new Date(this.birthday);
-                  return day.getFullYear() + "年" + day.getMonth() + "月" + day.getDay() + "日";
-              }
-          },
-          // watch做监控处理，让我监控一个值的变化，从而做出相应的反应
-          watch:{
-              msg:function(val, oldVal){  // val是实时的更新数据，oldVal是上次更新的数据
-                  console.log("监听事件------msg");
-                  console.log(val, oldVal);   // 这种的只是浅监控，无法去监控对象里的属性值的变化
-              },
-              person: {    // 开启深度监控。deep设置为true
-                  deep: true,
-                  handler(val) {
-                      console.log(val.age)
-                  }
-              }
-          }
-      })
+        let app = new Vue({
+            el: "#app",
+            data: {
+                msg: "Hello Vue",
+                arr: ['小明', '小红', '小黑'],
+                birthday: 1699932123201,    //毫秒值
+                active: "",
+                isTrue: true,
+                person: {
+                    name: "Jack",
+                    age: 21
+                }
+            },
+            computed: {
+                reverseMsg: {
+                    get: function () {
+                        return this.msg.split("").reverse().join("")
+                    },
+                    set: function (value) {
+                        console.log(value)
+                        this.msg = value.split("").reverse().join("")
+                    }
+                },
+                birth() {
+                    const day = new Date(this.birthday);
+                    return day.getFullYear() + "年" + day.getMonth() + "月" + day.getDay() + "日";
+                }
+            },
+            // watch做监控处理，让我监控一个值的变化，从而做出相应的反应
+            watch: {
+                msg: function (val, oldVal) {  // val是实时的更新数据，oldVal是上次更新的数据
+                    console.log("监听事件------msg");
+                    console.log(val, oldVal);   // 这种的只是浅监控，无法去监控对象里的属性值的变化
+                },
+                person: {    // 开启深度监控。deep设置为true
+                    deep: true,
+                    handler(val) {
+                        console.log(val.age)
+                    }
+                }
+            }
+        })
     </script>
 </body>
 </html>

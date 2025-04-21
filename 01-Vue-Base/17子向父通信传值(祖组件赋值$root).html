@@ -15,35 +15,35 @@
         <h2>选中的学校是：{{chooseSchool}}</h2>
     </div>
 
-    <script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      //自定义组件,从父组件传方法到子组件
-      let schoolysc = Vue.component("school-ysc", {
-          props:['schoolName','index','action'],
-          template:`<li>
-                      <h3>{{index}}--学校名称：{{schoolName}}</h3>
-                      <button @click="$root.chooseSchool = schoolName">选择学校</button>
-                   </li>`,
-          
-      })
-      //根组件
-      let app = new Vue({
-          el:"#app",
-          data:{
-              schoolList:['清华', '北大', '浙大', '中大'],
-              chooseSchool:"",
-          },
-          components:{
-              "school-ysc":schoolysc
-          },
-          methods:{
-              changeEvent:function(data){
-                  console.log("触发学校选择事件");
-                  this.chooseSchool = data
-              }
-          },
-      })
+        // 自定义组件,从父组件传方法到子组件
+        let schoolysc = Vue.component("school-ysc", {
+            props: ['schoolName', 'index', 'action'],
+            template: `<li>
+                          <h3>{{index}}--学校名称：{{schoolName}}</h3>
+                          <button @click="$root.chooseSchool = schoolName">选择学校</button>
+                       </li>`,
+
+        })
+        // 根组件
+        let app = new Vue({
+            el: "#app",
+            data: {
+                schoolList: ['清华', '北大', '浙大', '中大'],
+                chooseSchool: "",
+            },
+            components: {
+                "school-ysc": schoolysc
+            },
+            methods: {
+                changeEvent: function (data) {
+                    console.log("触发学校选择事件");
+                    this.chooseSchool = data
+                }
+            },
+        })
     </script>
 </body>
 </html>

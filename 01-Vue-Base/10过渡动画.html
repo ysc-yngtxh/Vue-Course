@@ -6,25 +6,25 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/vivify.css">
     <style type="text/css">
-      .context{
-          width: 200px;
-          height:20vw;
-          background: #b5b5ee;
-          margin: auto
-      }
-      .slide-enter-active, .slide-leave-active{
-          transition: opative 5s; 
-      }
-      .slide-enter, .slide-leave-to{
-          opacity: 0
-      }
-      .fade-enter-active, .fade-leave-active{
-          transition: all 5s; 
-      }
-      .fade-enter, .fade-leave-to{
-          transform: translateX(500px);
-          opacity: 0
-      }
+        .context {
+            width: 200px;
+            height: 20vw;
+            background: #b5b5ee;
+            margin: auto
+        }
+        .slide-enter-active, .slide-leave-active {
+            transition: opative 5s;
+        }
+        .slide-enter, .slide-leave-to {
+            opacity: 0
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: all 5s;
+        }
+        .fade-enter, .fade-leave-to {
+            transform: translateX(500px);
+            opacity: 0
+        }
     </style>
 </head>
 <body>
@@ -53,22 +53,22 @@
         </transition>
     </div>
 
-    <script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      let app = new Vue({
-          el:"#app",
-          data:{
-              isShow:true,
-              isSlide:true
-          },
-          methods:{
-              toggleEvent:function(){
-                  this.isShow=!this.isShow;
-                  this.isSlide=!this.isSlide
-              }
-          }
-      })
+        let app = new Vue({
+            el: "#app",
+            data: {
+                isShow: true,
+                isSlide: true
+            },
+            methods: {
+                toggleEvent: function () {
+                    this.isShow = !this.isShow;
+                    this.isSlide = !this.isSlide
+                }
+            }
+        })
     </script>
 </body>
 </html>

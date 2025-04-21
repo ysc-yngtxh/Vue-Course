@@ -15,41 +15,41 @@
     </div>
 
 
-    <script src="js/vue-2.7.14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-      let productcom = Vue.component("product-com",{
-          props:['html'],
-          template:`<div class="alert">
-                         <h1>温馨提示</h1>
-                         <div class="content">
-                            {{html}}
-                         </div>
-                    </div>`,
-      })
+        let productcom = Vue.component("product-com", {
+            props: ['html'],
+            template: `<div class="alert">
+                             <h1>温馨提示</h1>
+                             <div class="content">
+                                {{html}}
+                             </div>
+                        </div>`,
+        })
 
-      /*第二种情况*/
-      let productcom1 = Vue.component("product-com1",{
-          props:['html'],
-          template:`<div class="alert">
-                         <h1>欢迎光临</h1>
-                         <div class="content">
-                            <slot>定义默认内容</slot>
-                         </div>
-                    </div>`,
-                    // 插槽<slot></slot>就是将 <p>小心熊出没,{{context}}</p> 写进去
-      })
+        /*第二种情况*/
+        let productcom1 = Vue.component("product-com1", {
+            props: ['html'],
+            template: `<div class="alert">
+                             <h1>欢迎光临</h1>
+                             <div class="content">
+                                <slot>定义默认内容</slot>
+                             </div>
+                        </div>`,
+            // 插槽<slot></slot>就是将 <p>小心熊出没,{{context}}</p> 写进去
+        })
 
-      let app = new Vue({
-          el:"#app",
-          data:{
-              context:"小心地雷"
-          },
-          components:{
-              'product-com':productcom,
-              'product-com1':productcom1
-          }
-      })
+        let app = new Vue({
+            el: "#app",
+            data: {
+                context: "小心地雷"
+            },
+            components: {
+                'product-com': productcom,
+                'product-com1': productcom1
+            }
+        })
     </script>
 </body>
 </html>
