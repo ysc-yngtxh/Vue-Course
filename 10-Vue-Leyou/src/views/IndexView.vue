@@ -18,7 +18,8 @@
         clickMode="repulse"
         lines-width="100%">
     </vue-particles>
-<!--color: String类型。默认'#dedede'。粒子颜色。
+    <!--
+    color: String类型。默认'#dedede'。粒子颜色。
     particleOpacity: Number类型。默认0.7。粒子透明度。
     particlesNumber: Number类型。默认80。粒子数量。
     shapeType: String类型。默认"circle"。可用的粒子外观类型有："circle","edge","triangle", "polygon","star"。
@@ -32,7 +33,8 @@
     hoverEffect: 布尔类型。默认true。是否有hover特效。
     hoverMode: String类型。默认true。可用的hover模式有: "grab", "repulse", "bubble"。
     clickEffect: 布尔类型。默认true。是否有click特效。
-    clickMode: String类型。默认true。可用的click模式有: "push", "remove", "repulse", "bubble"-->
+    clickMode: String类型。默认true。可用的click模式有: "push", "remove", "repulse", "bubble"
+    -->
     <div class="son">
       <el-form :model="userForm.ruleForm" status-icon ref="ruleForm" class="demo-ruleForm">
         <p style="text-align: center; font-size: 30px; font-family: 楷体,serif; margin: 0 auto"><b>在线登陆系统</b></p>
@@ -49,7 +51,7 @@
 
         <el-form-item prop="code" :rules="{required:true, message:'请输入验证码', trigger:'blur'}">
           <el-input type="text" v-model="userForm.ruleForm.code" placeholder="点击图片更换验证码" style="width:210px;top: 0"></el-input>
-          <img :src="captUrl" @click="updateCaptcha" style="position: absolute;margin-top:0;margin-left:15px" alt="更换验证码"/>
+          <img :src="captUrl" @click="updateCaptcha" style="position: absolute;margin-top:0;margin-left:230px" alt="更换验证码"/>
         </el-form-item>
         <el-checkbox v-model="checked" style="position:relative;top:-5px">记住我</el-checkbox>
 
