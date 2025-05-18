@@ -47,7 +47,6 @@
 
 
 7、Vue router 如何传参
-
      params、query 是什么？
         params：/router1/:id，这里的 id 叫做 params。例如/router1/123, /router1/789
         query：/router1?id=123，这里的 id 叫做 query。例如/router1?id=456
