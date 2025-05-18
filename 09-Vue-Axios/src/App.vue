@@ -1,5 +1,5 @@
 <template id="app">
-  <router-view style="left: 50px"/>
+  <router-view/>
 </template>
 
 <script>

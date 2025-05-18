@@ -13,13 +13,13 @@
       <el-table-column label="Operate" align="center">
         <template v-slot="ope">
           <el-button @click="editUser(ope.row, ope.column, ope.$index)" getSelectionRows type="primary" circle
-                     style="width: 42px" :disabled="isEditing">
+                     style="width: 32px" :disabled="isEditing">
             <el-icon>
               <Edit/>
             </el-icon>
           </el-button>&nbsp;&nbsp;
           <el-button type="danger" @click="deletePost(ope.row, ope.column, ope.$index)" circle
-                     style="width: 42px" :disabled="isEditing">
+                     style="width: 30px" :disabled="isEditing">
             <el-icon>
               <Delete/>
             </el-icon>
@@ -31,14 +31,17 @@
     <!--分页配置-->
     <div class="demo-pagination-block">
       <div class="demonstration">All combined</div>
-      <el-pagination
-          background
-          layout="total, prev, pager, next, sizes, jumper"
-          :total="state.total"
-          :page-sizes="[5, 10, 20, 50]"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
-      />
+      <div style="display: flex; justify-content: center">
+        <!--hide-on-single-page 属性标识只有一页时是否隐藏-->
+        <el-pagination
+            background
+            layout="total, prev, pager, next, sizes, jumper"
+            :total="state.total"
+            :page-sizes="[5, 10, 20, 50]"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+        />
+      </div>
     </div>
   </div>
 
@@ -265,8 +268,11 @@ export default {
 .demo-pagination-block {
   margin-top: 10px;
 }
-
 .demo-pagination-block .demonstration {
   margin-bottom: 16px;
+}
+.el-pagination .is-background {
+  text-align: center;
+  margin-left: 300px;
 }
 </style>
