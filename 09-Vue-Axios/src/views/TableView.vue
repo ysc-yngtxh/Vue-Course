@@ -1,9 +1,9 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <el-table :data="allTableData.slice((state.page - 1) * state.limit, state.page * state.limit)"
+    <el-table :data="allTableData.slice((state.page-1)*state.limit, state.page*state.limit)"
               :default-sort="{prop:'id',order:'descending'}" border style="width: 100%"
-              @sort-change="sortChange">
+              @sort-change="sortChange" @cell-dblclick="doubleClick">
       <!-- sortable默认仅在当前页的数据进行排序 -->
       <el-table-column sortable prop="id" label="UserId" width="150" align="center"/>
       <el-table-column prop="userName" label="UserName" width="350" align="center"/>
@@ -13,25 +13,27 @@
       <el-table-column label="Operate" align="center">
         <template v-slot="ope">
           <el-button @click="editUser(ope.row, ope.column, ope.$index)" getSelectionRows type="primary" circle
-                     style="width: 42.4px">
+                     style="width: 42px" :disabled="isEditing">
             <el-icon>
               <Edit/>
             </el-icon>
           </el-button>&nbsp;&nbsp;
-          <el-button type="danger" @click="deletePost(ope.row, ope.column, ope.$index)" circle style="width: 42.4px">
+          <el-button type="danger" @click="deletePost(ope.row, ope.column, ope.$index)" circle
+                     style="width: 42px" :disabled="isEditing">
             <el-icon>
               <Delete/>
             </el-icon>
           </el-button>
         </template>
       </el-table-column>
-
     </el-table>
+
+    <!--分页配置-->
     <div class="demo-pagination-block">
       <div class="demonstration">All combined</div>
       <el-pagination
           background
-          layout="prev, pager, next ,total,sizes"
+          layout="total, prev, pager, next, sizes, jumper"
           :total="state.total"
           :page-sizes="[5, 10, 20, 50]"
           @current-change="handleCurrentChange"
@@ -43,16 +45,16 @@
   <!-- 编辑弹窗框 -->
   <el-dialog v-model="dialogFormVisible" title="修改用户数据">
     <el-form :model="form">
-      <el-form-item label="UserName" :label-width="formLabelWidth" style="text-align: left;">
-        <el-input disabled v-model="form.username" autocomplete="off" style="width: 350px;"/>
+      <el-form-item label="username" :label-width="formLabelWidth" style="text-align: left;">
+        <el-input disabled v-model="form.userName" autocomplete="off" style="width: 350px;"/>
       </el-form-item>
-      <el-form-item label="PassWord" :label-width="formLabelWidth" style="text-align: left;">
-        <el-input v-model="form.password" autocomplete="off" style="width: 350px;"/>
+      <el-form-item label="password" :label-width="formLabelWidth" style="text-align: left;">
+        <el-input v-model="form.passWord" autocomplete="off" style="width: 350px;"/>
       </el-form-item>
-      <el-form-item label="Phone" :label-width="formLabelWidth" style="text-align: left;">
+      <el-form-item label="phone" :label-width="formLabelWidth" style="text-align: left;">
         <el-input v-model="form.phone" autocomplete="off" style="width: 350px;"/>
       </el-form-item>
-      <el-form-item label="Address" :label-width="formLabelWidth" style="text-align: left;">
+      <el-form-item label="address" :label-width="formLabelWidth" style="text-align: left;">
         <el-input v-model="form.address" autocomplete="off" style="width: 350px;"/>
       </el-form-item>
     </el-form>
@@ -65,7 +67,6 @@
       </span>
     </template>
   </el-dialog>
-
 </template>
 
 <script>
@@ -90,18 +91,20 @@ export default {
       formLabelWidth: '120px',
       form: {
         id: 0,
-        username: '',
-        password: '',
+        userName: '',
+        passWord: '',
         phone: '',
         address: '',
       },
       index: 0,
+      isEditing: false
     }
   },
   mounted() {
     this.tableNum()
   },
   methods: {
+    // 获取表格数据
     tableNum() {
       axios.get('/home/selectPage', {
         params: {
@@ -117,9 +120,44 @@ export default {
           return;
         }
         let a = response.data.data.data
+        // 将数组 a 的所有元素追加到 this.allTableData 中。
         this.allTableData.push.apply(this.allTableData, a)
         this.state.total = response.data.data.total
       })
+    },
+    // 双击单元格即可进行编辑
+    doubleClick(row, column, cell, event) {
+      console.log(row, column, cell, event)
+      if (column.property === 'id' || column.property === 'username') {
+        return;
+      }
+      // 将原先单元格内容清空
+      event.target.innerHTML = ''
+      let cellInput = document.createElement("input");
+      // 通过单元格该列的列名得到原先单元格的值赋给input
+      cellInput.value = row[column.property];
+      cellInput.setAttribute("type", "text");
+      // 设置输入框样式（蓝色边框）
+      cellInput.style.cssText = `
+                                 width: 80%;
+                                 text-align: center;
+                                 border: 1px solid #53c5f3;
+                                 outline: none;
+                                 padding: 4px;
+                                `;
+      // cellInput.style.width = "80%";
+      // cellInput.style.textAlign = "center";
+      // cellInput.style.border = "1px solid #53c5f3";
+      // 将cellInput作为最后一个子元素添加到元素
+      cell.appendChild(cellInput);
+      // 聚焦
+      cellInput.focus();
+      // 失焦
+      cellInput.onblur = function () {
+        cell.removeChild(cellInput);
+        event.target.innerHTML = cellInput.value;
+        row[column.property] = cellInput.value;
+      };
     },
     // 改变页码
     handleCurrentChange(e) {
@@ -145,16 +183,17 @@ export default {
       console.log(column)
       this.dialogFormVisible = true
       this.form.id = row.id
-      this.form.username = row.username
-      this.form.password = row.password
+      this.form.userName = row.userName
+      this.form.passWord = row.passWord
       this.form.phone = row.phone
       this.form.address = row.address
     },
     // 编辑用户数据
     editPostUpdate() {
+      this.isEditing = true; // 在请求时禁用按钮，避免重复提交
       axios.post('/home/updateUser', {
         id: this.form.id,
-        password: this.form.password,
+        passWord: this.form.passWord,
         phone: this.form.phone,
         address: this.form.address
       }, {
@@ -164,10 +203,15 @@ export default {
       }).then(res => {
         if (res.data.code === 200) {
           ElMessage.success("修改成功！")
-          this.allTableData[this.index] = this.form
+          this.allTableData.forEach((row, indexData) => {
+            if (row.id === this.form.id) {
+              this.allTableData[indexData] = this.form
+            }
+          })
         }
       })
       this.dialogFormVisible = false
+      this.isEditing = false;
     },
     // 逻辑删除用户数据
     deletePost(row, column, index) {
@@ -183,19 +227,21 @@ export default {
             type: 'warning',
           }
       ).then(() => {
-        axios.post('/home/deleteUser', {
-          id: row.id
-        }, {
-          headers: {
-            'X-Token': localStorage.getItem("Authorization")
-          }
+        axios.delete('/home/deleteUser', {
+          params: {id: row.id},  // 参数会拼接到 URL
+          headers: {'X-Token': localStorage.getItem("Authorization")}
         }).then(res => {
           if (res.data.code === 200) {
             ElMessage({
               type: 'success',
               message: '删除成功',
             });
-            this.allTableData.splice(index, 1)
+            // this.allTableData.forEach((item, indexData) => {
+            //   if (item.id === row.id) {
+            //     this.allTableData.splice(indexData, 1)
+            //   }
+            // })
+            this.allTableData = this.allTableData.filter(item => item.id !== row.id);
             this.state.total--
           } else {
             ElMessage({
@@ -211,7 +257,7 @@ export default {
         })
       })
     }
-  },
+  }
 }
 </script>
 

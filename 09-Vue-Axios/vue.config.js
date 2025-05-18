@@ -3,8 +3,8 @@ const { defineConfig } = require('@vue/cli-service')
 /**
  cors跨域请求配置文件
  将前端的Ajax请求的请求头设置成代理的目标请求路径
- ①比如有个Ajax请求的url路径是'/captcha'。实际上的完整路径是当前的域：http://localhost:8081
- ②那么跨域请求要访问的是http://localhost:8080。
+ ①、比如有个Ajax请求的url路径是'/captcha'。实际上的完整路径是当前的域：http://localhost:8081
+ ②、那么跨域请求要访问的是http://localhost:8080。
  所以这个配置文件将请求路径中的域+端口(localhost:8081)交给node.js,
  node.js把请求代理给域+端口(localhost:8080)
 
@@ -25,7 +25,8 @@ const { defineConfig } = require('@vue/cli-service')
 //   pathRewrite: {'^/home': '/api'}
 // }
 
-/*module.exports = defineConfig({
+/*
+module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     // 请求体中添加自定义标头
@@ -49,13 +50,15 @@ const { defineConfig } = require('@vue/cli-service')
     // 写法二
     // proxy: proxyObj
   }
-})*/
+})
+*/
+
 // 跨域配置
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
   devServer: {
-    port: 8081, // 端口
+    port: 8081,   // 端口
     proxy: {
       '/home': {  // 若请求的前缀不是这个'/home'，那请求就不会走代理服务器
         target: 'http://localhost:8080',    // 这里写路径

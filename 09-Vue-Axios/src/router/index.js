@@ -8,14 +8,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/table1',
-    name: 'table1',
-    component: () => import('../views/Table1View.vue')
-  },
-  {
-    path: '/table2',
-    name: 'table2',
-    component: () => import('../views/Table2View.vue')
+    path: '/table',
+    name: 'table',
+    component: () => import('../views/TableView.vue')
   }
 ]
 

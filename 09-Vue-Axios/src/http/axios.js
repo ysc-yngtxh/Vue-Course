@@ -8,7 +8,7 @@ axios.interceptors.response.use(resp => {
     } else if (resp.data.data === null) {
         console.log(resp.data);
         ElMessage.info(resp.data.message)
-        router.push('/')
+        router.push('/').then(r => r)
     }
     return resp;
 }, error => {
@@ -18,7 +18,7 @@ axios.interceptors.response.use(resp => {
         ElMessage.error("权限不足，请联系管理员")
     } else if (error.status === 401) {
         ElMessage.error("未登录，请重新登录")
-        router.replace('/')
+        router.replace('/').then(r => r)
     } else {
         ElMessage.error("未知错误")
     }
