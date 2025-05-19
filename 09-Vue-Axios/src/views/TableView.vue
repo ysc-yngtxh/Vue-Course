@@ -266,7 +266,7 @@ export default {
 
 <style scoped>
 .demo-pagination-block {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .demo-pagination-block .demonstration {
   margin-bottom: 16px;

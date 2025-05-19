@@ -42,7 +42,7 @@
       <el-table-column prop="letter" label="首字母" align="center"/>
       <el-table-column label="操作" align="center">
         <template v-slot="ope">
-          <el-button type="primary" @click="deletePost(ope.row, ope.column, ope.$index)" circle style="width: 42.4px">
+          <el-button type="primary" @click="deletePost(ope.row, ope.column, ope.$index)" circle style="width: 32px">
             <el-icon>
               <Delete/>
             </el-icon>
@@ -115,10 +115,10 @@ const tableData = reactive({
   brands: [],     // 当前页品牌数据
   loading: true,  // 是否在加载中
   pagination: {page: 1, itemsPerPage: 10, sortBy: [], sortDesc: []}, // 分页信息{page:当前页 itemsPerPage:每页大小 sortBy:排序字段 sortDesc:是否降序}
-  show: false,// 控制对话框的显示
-  oldBrand: {}, // 即将被编辑的品牌数据
-  isEdit: false, // 是否是编辑
-  isPreView: []  // 预览图片
+  show: false,    // 控制对话框的显示
+  oldBrand: {},   // 即将被编辑的品牌数据
+  isEdit: false,  // 是否是编辑
+  isPreView: []   // 预览图片
 });
 
 const getDataFromServer = () => {
@@ -188,6 +188,12 @@ const closeWindow = () => {
 </script>
 
 <style scoped>
+.demo-pagination-block {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .demo-image__error .image-slot {
   font-size: 30px;
 }

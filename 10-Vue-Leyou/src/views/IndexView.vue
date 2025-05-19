@@ -42,16 +42,20 @@
         <el-form-item prop="name" :rules="{required:true, message:'请输入用户名', trigger:'blur'}">
           <!--prop作用是去验证规则rules中找到对应的属性规则-->
           <!--required 一般用在做校验判断当前选项内容是否为必填。blur失去焦点，比如输入框里。校验文本框是否为空-->
-          <el-input type="text" v-model="userForm.ruleForm.name" autocomplete="off" placeholder="请输入用户名"></el-input>
+          <el-input type="text" v-model="userForm.ruleForm.name" autocomplete="off"
+                    placeholder="请输入用户名"></el-input>
         </el-form-item>
 
         <el-form-item prop="pwd" :rules="{required:true, message:'请输入密码', trigger:'blur'}">
-          <el-input type="password" v-model="userForm.ruleForm.pwd" autocomplete="off" placeholder="请输入密码"></el-input>
+          <el-input type="password" v-model="userForm.ruleForm.pwd" autocomplete="off"
+                    placeholder="请输入密码"></el-input>
         </el-form-item>
 
         <el-form-item prop="code" :rules="{required:true, message:'请输入验证码', trigger:'blur'}">
-          <el-input type="text" v-model="userForm.ruleForm.code" placeholder="点击图片更换验证码" style="width:210px;top: 0"></el-input>
-          <img :src="captUrl" @click="updateCaptcha" style="position: absolute;margin-top:0;margin-left:230px" alt="更换验证码"/>
+          <el-input type="text" v-model="userForm.ruleForm.code" placeholder="点击图片更换验证码"
+                    style="width:210px;top: 0"></el-input>
+          <img :src="captUrl" @click="updateCaptcha" style="position: absolute;margin-top:0;margin-left:230px"
+               alt="更换验证码"/>
         </el-form-item>
         <el-checkbox v-model="checked" style="position:relative;top:-5px">记住我</el-checkbox>
 
@@ -73,8 +77,8 @@ import {ElMessage} from "element-plus";
 
 let userForm = reactive({
   ruleForm: {
-    name: "游诗成",
-    pwd: "322",
+    name: "游家纨绔",
+    pwd: "123456",
     code: ""
   }
 })
@@ -87,21 +91,21 @@ const updateCaptcha = () => {
   captUrl = '/captcha?time=' + new Date();
 }
 const submitForm = () => {
-  /* 取出表单组件form，进行校验 */
-  ruleForm.value.validate( (valid) => {
+  // 取出表单组件form，进行校验
+  ruleForm.value.validate((valid) => {
     if (valid) {
       postRequired('/login', userForm.ruleForm).then(resp => {
-        alert(JSON.stringify(resp.data)); /* 将json对象转化为json字符串 */
-        let newData = eval("("+JSON.stringify(resp.data)+")"); /* 解析json */
+        alert(JSON.stringify(resp.data)); // 将json对象转化为json字符串
+        let newData = eval("(" + JSON.stringify(resp.data) + ")"); // 解析json
         console.log(newData.obj)
-        if (newData.code === 200){
+        if (newData.code === 200) {
           localStorage.setItem("Authorization", newData.obj);
           console.log(localStorage.getItem("Authorization"));
-          sessionStorage.setItem("user",userForm.name);
+          sessionStorage.setItem("user", userForm.name);
 
           router.push({
-            path:"/init",
-          },function(){
+            path: "/init",
+          }, function () {
             console.log("成功跳转页面")
           })
         }
@@ -123,31 +127,35 @@ const resetForm = () => {
 </script>
 
 <style>
-body{
+body {
   padding: 0;
   margin: 0;
 }
+
 /*隐藏滚动条，但保留滚动效果*/
-::-webkit-scrollbar{
-  display:none;
+::-webkit-scrollbar {
+  display: none;
 }
-.background{
+
+.background {
   width: 100%;
   height: 100%;
   margin: 0;
-  background: url("../assets/timg.jpg")no-repeat;
+  background: url("../assets/timg.jpg") no-repeat;
   position: fixed;
   display: flex;
   justify-content: center;
-  align-content: center;  /*水平居中*/
+  align-content: center; /*水平居中*/
 }
+
 /*组件v-particles的Id属性css*/
-#particles-js{
+#particles-js {
   width: 100%;
   height: 100%;
   position: fixed;
 }
-.demo-ruleForm{
+
+.demo-ruleForm {
   border-radius: 15px; /*边界半径*/
   background-clip: padding-box;
   margin: 180px 550px; /*外边距*/
@@ -155,7 +163,7 @@ body{
   padding: 15px 35px 15px 35px; /*内边距*/
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
-  background: url("../assets/4.jpg")no-repeat;
+  background: url("../assets/4.jpg") no-repeat;
   background-size: 100% 100%;
   position: relative;
 }
