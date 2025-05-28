@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue-3.5.13.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <h1>{{ test }}</h1>
+        <button @click="fun_test">点击测试</button>
+    </div>
+
+    <script>
+        // Vue3的组合式API是使用setup函数来编写组件逻辑的。
+        // setup函数是Vue3中用于替代Vue2的选项式API（如data、methods等）的一种方式。
+        // 在setup函数中，你可以访问到一些特殊的响应式对象，并且可以返回一些可以在模板中使用的数据、方法等。
+
+        // 使用解构赋值获取 Vue API
+        // ref 用于创建一个响应式引用对象，将普通数据（如字符串、数字等）包裹成响应式数据，当数据变化时自动触发视图更新。
+        const {createApp, ref} = Vue  // 这里可以看作是解构函数
+        const app = createApp({
+            // 逻辑代码全部写在 setup() 里面
+            // 因为没有语法糖<script setup>，无论是定义的 "变量" 或者 "函数" 都必须把名称放在最后return里面
+            setup() {
+                // 通过 ref 创建的响应式数据，模板中可直接使用 {{ test }}（无需 .value）。
+                const test = ref(2025)
+                // 测试函数
+                const fun_test = () => {
+                    test.value = test.value + 1
+                    console.log("测试函数被调用", test.value);
+                }
+                return { test, fun_test }
+            }
+        })
+        // 应用vue（就是挂载在上面ID绑定的元素上）
+        app.mount("#app")
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+
+    <style type="text/css">
+        #pane {
+            background: #53c5f3;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        v-show: 是控制css的display是否为none来隐藏或展示，dom元素一直都是在的。
+        v-if: 显示隐藏是直接将整个dom元素添加或删除
+        如果需要频繁地切换，则v-show较好；如果在运行时条件很少改变，则使用v-if较好。
+    -->
+    <div id="app">
+        <h1>用户名:{{username}}</h1>
+        <h3 v-if="isVip">用户类型：Vip</h3>
+        <!--注意v-if和v-else中间不能有其他的元素-->
+        <h3 v-else>用户类型：普通用户</h3>
+
+        <hr>
+
+        <h1>用户允许登陆时间</h1>
+
+        <h3 v-if="age>18">允许24小时登录</h3>
+        <h3 v-else-if="age>14">允许8小时登录</h3>
+        <h3 v-else>允许4小时登录</h3>
+    </div>
+
+    <div id="appa">
+        <div v-show="isShow" id="pane">
+            HelloVue
+        </div>
+        <button @click="showPane">切换显示内容</button>
+    </div>
+
+    <div id="appe">
+        <h3 v-if="tab==='1'">首页</h3>
+        <h3 v-else-if="tab==='2'">新闻页</h3>
+        <h3 v-else>个人中心</h3>
+
+        <button @click="tabChange" data-id="1">首页</button><!--固定写法：data-什么什么-->
+        <button @click="tabChange" data-id="2">新闻页</button>
+        <button @click="tabChange" data-id="3">个人中心</button>
+    </div>
+
+
+    <script type="text/javascript">
+        let app = new Vue({
+            el: "#app",
+            data: {
+                username: "游家纨绔",
+                isVip: false,
+                age: 24,
+            }
+        })
+
+        let appa = new Vue({
+            el: "#appa",
+            data: {
+                isShow: true,
+            },
+            methods: {
+                showPane: function (e) {
+                    console.log(e);
+                    appa.isShow = !appa.isShow;
+                }
+            }
+        })
+
+        let appe = new Vue({
+            el: "#appe",
+            data: {
+                tab: "1",
+            },
+            methods: {
+                tabChange: function (e) {
+                    console.log(e);
+                    this.tab = e.target.dataset.id; // 事件.目标.dataset.对应内容
+                }
+            }
+        })
+    </script>
+</body>
+</html>

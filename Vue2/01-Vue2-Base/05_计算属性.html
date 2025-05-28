@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <!--一般情况下写法-->
+        <h1>{{firstname + lastname}}</h1>
+        <!--计算属性-->
+        <h1>{{fullName}}</h1>
+        <!--逆序显示一个单词-->
+        <h1>{{ word.split("").reverse().join("") }}</h1>
+    </div>
+
+    <script type="text/javascript">
+        let app = new Vue({
+            el: "#app",
+            data: {
+                firstname: "张",
+                lastname: "三",
+                word: "music",
+            },
+            computed: {
+                fullName: function () {
+                    console.log(this)
+                    // 会将计算的结果进行缓存，只要内容不改变，就不会firstname和lastname变量内重新计算
+                    // 这样的性能会更好
+                    return this.firstname + this.lastname;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

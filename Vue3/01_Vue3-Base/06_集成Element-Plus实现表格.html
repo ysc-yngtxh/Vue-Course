@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/element-plus.css"/>
+
+    <script src="js/vue-3.5.13.js"></script>
+    <script src="js/vue-router-4.5.1.js"></script>
+    <script src="js/element-plus-2.9.11.js"></script>
+</head>
+<body style="height: 100vh; width: 100vw; overflow: hidden">
+    <div id="app">
+        <h1>{{WelcomeMessage}}</h1>
+        <router-link to="/Home">Go to Home</router-link>&emsp;&emsp;&emsp;&emsp;
+        <router-link to="/TablePage">Go to TablePage</router-link>
+        <router-view></router-view>
+    </div>
+
+    <template id="tablePage">
+        <div class="common-layout">
+            <el-container>
+                <el-main>
+                    <el-table :data="tableData" style="width: 100%">
+                        <el-table-column prop="date" label="Date"></el-table-column>
+                        <el-table-column prop="name" label="Name"></el-table-column>
+                        <el-table-column prop="address" label="Address"></el-table-column>
+                    </el-table>
+                </el-main>
+            </el-container>
+        </div>
+    </template>
+
+    <template id="homePage">
+        <p style="color: red">我是HomePage</p>
+    </template>
+
+    <script>
+        const {createApp, ref, computed, watch, defineComponent} = Vue;
+        const {createRouter, createWebHistory} = VueRouter;
+
+        const tableData = ref([
+            {
+                date: "2025-06-03",
+                name: "赵敏",
+                address: "深圳市南山区"
+            },
+            {
+                date: "2025-06-02",
+                name: "陈静",
+                address: "武汉市洪山区",
+            },
+            {
+                date: "2025-06-04",
+                name: "吴刚",
+                address: "杭州市西湖区",
+            },
+            {
+                date: "2016-05-01",
+                name: "Tom",
+                address: "成都市武侯区",
+            },
+        ]);
+
+        // 定义tablePage组件
+        const TablePage = defineComponent({
+            template: "#tablePage",
+            setup(props, context) {
+                console.log("我是TablePage组件", props);
+                return {
+                    tableData,
+                };
+            },
+        });
+
+        // 定义homePage组件
+        const HomePage = defineComponent({
+            template: "#homePage",
+            setup(props, context) {
+                console.log("我是TablePage组件", props);
+            },
+        });
+
+        // 定义路由
+        const routes = [
+            {path: "/Home", component: HomePage},
+            {path: "/TablePage", component: TablePage},
+        ];
+        const router = VueRouter.createRouter({
+            history: createWebHistory(),
+            routes: routes,
+        });
+
+        // 创建Vue应用
+        const WelcomeMessage = ref("Hello Vue App!");
+        Vue.createApp({
+            setup() {
+                return {
+                    tableData,
+                    WelcomeMessage,
+                };
+            },
+        }).use(router).use(ElementPlus).mount("#app");
+    </script>
+</body>
+</html>

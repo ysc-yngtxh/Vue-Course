@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>使用Vue3</title>
+    <script src="js/vue-3.5.13.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <h1>{{ message }}</h1>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "hello world"
+                }
+            },
+        });
+        app.mount("#app"); // 应用vue（就是挂载在上面ID绑定的元素上）
+    </script>
+</body>
+</html>

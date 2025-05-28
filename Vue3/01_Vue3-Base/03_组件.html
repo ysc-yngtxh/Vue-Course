@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue-3.5.13.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        .my-component {
+            border: 1px solid #42b983;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            max-width: 500px;
+        }
+        .my-component button {
+            background-color: #42b983;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .my-component button:hover {
+            background-color: #3aa876;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <my-component :mes="parentMessage" @count-changed="handleCountChanged"></my-component>
+    </div>
+
+    <script>
+        // 使用解构赋值获取 Vue API
+        // ref 用于创建一个响应式引用对象，将普通数据（如字符串、数字等）包裹成响应式数据，当数据变化时自动触发视图更新。
+        const { createApp, ref, computed, watch, defineComponent } = Vue;
+
+        // 定义组件
+        const MyComponent = defineComponent({
+            props: ['mes'],
+            template: `<div class="my-component">
+                           <h2>子组件</h2>
+                           <p>接收到的父组件消息: {{ message }}</p>
+                           <p>组件内部数据: {{ count }}</p>
+                           <button @click="increment">增加计数</button>
+                       </div>`,
+            // setup(props, content)函数的第一个参数是组件的props、第二个参数是一个上下文对象
+            // { emit } 是 setup 函数第二个参数（上下文对象 context）的解构赋值写法，用于向父组件触发自定义事件并传递数据。
+            setup(props, { emit }) {
+                // 将 props.mes 转换为响应式引用
+                const message = ref(props.mes);
+                // 组件内部状态
+                const count = ref(0);
+                // 方法
+                const increment = () => {
+                    count.value++;
+                    emit('count-changed', count.value);
+                };
+                // 监听 props 变化
+                watch(() => props.mes, (newVal) => {
+                    message.value = newVal;
+                    alert('父组件消息更新为:' + newVal);
+                });
+                // 暴露给模板使用的数据和方法
+                return { message, count, increment };
+            }
+        });
+
+        // 创建应用实例
+        const app = createApp({
+            // 注册组件方式一
+            components: {
+                "my-component": MyComponent
+            },
+            setup() {
+                const parentMessage = ref('来自父组件的消息');
+                // 监听子组件事件
+                const handleCountChanged = (newCount) => {
+                    console.log('子组件计数变化:', newCount);
+                };
+                return { parentMessage, handleCountChanged };
+            }
+        });
+        // 注册组件方式二
+        app.component('my-component', MyComponent);
+        // 挂载应用
+        app.mount('#app');
+    </script>
+</body>
+</html>

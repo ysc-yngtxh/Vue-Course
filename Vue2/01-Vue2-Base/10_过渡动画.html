@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过渡动画</title>
+    <link rel="stylesheet" href="css/vivify.css">
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        .context {
+            width: 200px;
+            height: 20vw;
+            background: #b5b5ee;
+            margin: auto
+        }
+        .slide-enter-active, .slide-leave-active {
+            transition: opative 5s;
+        }
+        .slide-enter, .slide-leave-to {
+            opacity: 0
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: all 5s;
+        }
+        .fade-enter, .fade-leave-to {
+            transform: translateX(500px);
+            opacity: 0
+        }
+    </style>
+</head>
+<body>
+    <!--
+        过渡的类名：
+          *-enter: 定义进入过渡的开始状态
+          *-enter-active: 定义进入过渡生效的状态
+          *-enter-to: 定义进入过渡的结束状态(to--至)
+          *-leave: 定义离开过渡的开始状态
+          *-leave-active: 定义离开过渡生效的状态
+          *-leave-to: 定义离开过渡的结束状态(to--至)
+
+        animate.css是一个css样式动画库，基本上囊括了所有的动画样式
+        vivify.css也是一个动画库，是从animate.css衍生出来的
+    -->
+    <div id="app">
+        <!--引入动画库样式：enter-active-class-->
+        <transition name="slide" enter-active-class="vivify ball" leave-active-class="vivify popOutBottom">
+            <div v-if="isSlide" class="context"></div>
+        </transition>
+
+        <button @click="toggleEvent">切换内容</button>
+
+        <transition name="fade">
+            <div v-if="isShow" class="context"></div>
+        </transition>
+    </div>
+
+    <script type="text/javascript">
+        let app = new Vue({
+            el: "#app",
+            data: {
+                isShow: true,
+                isSlide: true
+            },
+            methods: {
+                toggleEvent: function () {
+                    this.isShow = !this.isShow;
+                    this.isSlide = !this.isSlide
+                }
+            }
+        })
+    </script>
+</body>
+</html>

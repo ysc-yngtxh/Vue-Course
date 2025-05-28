@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <script src="js/vue-3.5.13.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{RootProps}}</h1>
+        <parent :mes="RootProps"></parent>
+    </div>
+
+    <template id="parent">
+        <h2>{{mes}}</h2>
+        <children :sub="mes+' 阿斯顿撒'"></children>
+    </template>
+
+    <template id="children">
+        <h3>{{sub}}</h3>
+    </template>
+
+
+    <script>
+        const {createApp, ref, computed, watch, defineComponent} = Vue;
+
+        // 定义组件
+        const Children = defineComponent({
+            props: {
+                sub: String, // 定义String类型的 sub
+            },
+            template: "#children",
+            setup(props, context) {
+                console.log("我是子组件", props);
+            },
+        });
+
+        // 定义组件
+        const Parent = defineComponent({
+            props: {
+                mes: String, // 定义String类型的 mes
+            },
+            template: "#parent",
+            components: {
+                Children,
+            },
+            setup(props, context) {
+                console.log("我是父组件", props);
+            },
+        });
+
+        const RootProps = ref("RootProps String");
+
+        createApp({
+            components: { Parent },
+            setup() {
+                return {
+                    RootProps,
+                };
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>
