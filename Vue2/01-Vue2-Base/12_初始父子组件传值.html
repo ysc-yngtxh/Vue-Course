@@ -17,18 +17,19 @@
             <product-com v-for="(item,index) in proList" :product="item" :key="index"></product-com>
 
             <!--从子组件传值到父组件($emit())-->
-            <!--@ 表示子组件 cschool方法 绑定父组件 changeEvent方法-->
+            <!--@ 表示子组件 triggerSchool方法 绑定父组件 changeEvent方法-->
             <!--: 表示子组件 school-name属性 绑定父组件遍历的值 item-->
-            <school-ysc v-for="(item,index) in schoolList" :school-name="item" :index='index'
-                        :key="'abc'+index" @cschool='changeEvent'>
-            </school-ysc>
+            <school-type v-for="(item,index) in schoolList" :school-name="item" :index='index'
+                         :key="'abc'+index" @triggerSchool='changeEvent'>
+            </school-type>
         </ul>
 
         <h2>选中的学校是：{{chooseSchool}}</h2>
     </div>
 
+
     <script type="text/javascript">
-        // 定义全局组件：就是说这个标签内容在跳转其他页面后一样有效
+        // 自定义组件counter
         const counter = Vue.component("counter", {
             template: "<button @click='count++'>点我试试，点了我{{count}}次，很好，我记住你了！</button>",
             data() {      // data这里定义成一个方法是因为需要一个返回值，避免去影响本页面的其他的counter标签，要不然就乱套了
@@ -37,18 +38,17 @@
                 }
             }
         });
-        // 自定义组件1,从父组件传值到子组件
+        // 自定义组件ProductCom，实现从父组件传值到子组件
         let ProductCom = Vue.component("product-com", {
             props: ['product'],  // 可以通过props进行赋值
-            template: `
-                       <li>
+            template: `<li>
                           <h3>产品名称：{{product.title}}</h3>
                           <h4>产品描述：{{product.brief}}</h4>
                           <p>产品价格：{{product.price}}</p>
                        </li>`,
         })
-        // 自定义组件2,从子组件传值到父组件
-        let SchoolYsc = Vue.component("school-ysc", {
+        // 自定义组件SchoolType，实现从子组件传值到父组件
+        let SchoolType = Vue.component("school-type", {
             props: ['schoolName', 'index'],
             template: `<li>
                           <h3>{{index}}--学校名称：{{schoolName}}</h3>
@@ -58,9 +58,9 @@
                 chooseEvent: function (schoolName) {
                     console.log(schoolName);
                     // 想要将子元素的数据传递给父元素，需要自定义触发事件，实现数据的传值
-                    // 触发一个名称叫做cschool事件
-                    this.$emit('cschool', schoolName)
-                    // $emit:触发当前实例上的事件,并且把值传给@cschool。附加参数都会传给监听器回调。
+                    // 触发一个名称叫做triggerSchool事件
+                    this.$emit('triggerSchool', schoolName)
+                    // $emit: 触发当前实例上的事件，并且把值传给 @triggerSchool。附加参数都会传给监听器回调。
                 }
             }
         })
@@ -96,7 +96,7 @@
             components: {   // 前面表示的是counter标签， 后面表示的是counter对象
                 counter: counter,
                 'product-com': ProductCom,
-                "school-ysc": SchoolYsc
+                "school-type": SchoolType
             },
             methods: {
                 changeEvent: function (data) {

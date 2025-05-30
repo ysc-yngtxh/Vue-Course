@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
     <div id="app">
         <ul>
             <!--父传子方法对象-->
             <!--但是v-bind可以去改变class属性，使他仅仅成为一个标签。赋值成功后转为 class="......"-->
-            <school-ysc v-for="(item,index) in schoolList" :school-name="item" :index='index'
-                        :key="'abc'+index" :action='changeEvent'>
-            </school-ysc>
+            <school-type v-for="(item,index) in schoolList" :school-name="item" :index='index'
+                         :key="'abc'+index" :action='changeEvent'>
+            </school-type>
         </ul>
 
         <h2>选中的学校是：{{chooseSchool}}</h2>
     </div>
 
-    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+
     <script type="text/javascript">
-        // 自定义组件,从父组件传方法到子组件
-        let schoolysc = Vue.component("school-ysc", {
+        // 自定义组件schoolType，从父组件传方法到子组件
+        let schoolType = Vue.component("school-type", {
             props: ['schoolName', 'index', 'action'], // 通过props进行赋值，将action绑定的changeEvent事件传给子组件
             template: `<li>
                           <h3>{{index}}--学校名称：{{schoolName}}</h3>
@@ -44,7 +45,7 @@
                 chooseSchool: "",
             },
             components: {
-                "school-ysc": schoolysc
+                "school-type": schoolType
             },
             methods: {
                 changeEvent: function (data) {

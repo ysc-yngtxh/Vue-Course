@@ -29,20 +29,21 @@
         <!--所以当频繁切换显示状态，尽量使用 v-show。减少渲染次数，提升渲染性能-->
     </div>
 
+
     <script type="text/javascript">
         // 自定义组件
         let helloCom = Vue.component("hello-com", {
-            template: '<div><h1>{{youshicheng}}</h1><button @click="changeData">修改数据</button></div>',
+            template: '<div><h1>{{title}}</h1><button @click="changeData">修改数据</button></div>',
             data: function () {
                 // 这里的data是要定义成一个方法，不像Vue组件，只加载一次。
                 // 自定义的组件是每次启动时候都重新加载一次
                 return {
-                    youshicheng: "hello 游家纨绔"
+                    title: "hello 游家纨绔"
                 }
             },
             methods: {
                 changeData: function () {
-                    this.youshicheng = "hello 小明"
+                    this.title = "hello 小明"
                 }
             },
             beforeUpdate() {
