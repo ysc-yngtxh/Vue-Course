@@ -125,9 +125,9 @@
                 searchWeather: async function () {
                     console.log("查询天气");
                     // 城市相关信息API
-                    let citys = `https://geoapi.qweather.com/v2/city/lookup?location=${this.city}&key=f83cf5800baf480fa4c3bc6a474ffd90`
+                    let cityInfo = `https://geoapi.qweather.com/v2/city/lookup?location=${this.city}&key=f83cf5800baf480fa4c3bc6a474ffd90`
                     // 异步获取
-                    let res1 = await fetch(citys)
+                    let res1 = await fetch(cityInfo)
                     // 转为json格式
                     let result1 = await res1.json()
                     // 获取城市id

@@ -40,7 +40,7 @@ export default createStore({
     /** TODO
      * 因为项目需求，项目中引用了图片的网络链接，但是发现了很奇怪的问题，图片链接如果在浏览器的地址栏中可以直接打开，如果在前端项目的Img标签中却无法被渲染。
      * 1、在public/index.html中添加：<meta name="referrer" content="no-referrer">
-     * 2、在img标签中添加：<img referrerpolicy="no-referrer" src="xx"/>
+     * 2、在img标签中添加：<gif referrerpolicy="no-referrer" src="xx"/>
      */
     updateImage(context){
       let url = 'https://api.apiopen.top/api/getImages?size=16';

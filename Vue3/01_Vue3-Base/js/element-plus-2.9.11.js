@@ -18190,7 +18190,7 @@
                     class: vue.normalizeClass(vue.unref(avatarClass)),
                     style: vue.normalizeStyle(vue.unref(sizeStyle))
                 }, [
-                    (_ctx.src || _ctx.srcSet) && !hasLoadError.value ? (vue.openBlock(), vue.createElementBlock("img", {
+                    (_ctx.src || _ctx.srcSet) && !hasLoadError.value ? (vue.openBlock(), vue.createElementBlock("gif", {
                         key: 0,
                         src: _ctx.src,
                         alt: _ctx.alt,
@@ -34419,7 +34419,7 @@
             };
         }
     });
-    var ImgEmpty = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["__file", "img-empty.vue"]]);
+    var ImgEmpty = /* @__PURE__ */ _export_sfc(_sfc_main$1c, [["__file", "gif-empty.vue"]]);
 
     const emptyProps = buildProps({
         image: {
@@ -34455,7 +34455,7 @@
                         class: vue.normalizeClass(vue.unref(ns).e("image")),
                         style: vue.normalizeStyle(vue.unref(imageStyle))
                     }, [
-                        _ctx.image ? (vue.openBlock(), vue.createElementBlock("img", {
+                        _ctx.image ? (vue.openBlock(), vue.createElementBlock("gif", {
                             key: 0,
                             src: _ctx.image,
                             ondragstart: "return false"
@@ -34950,13 +34950,13 @@
                                             }, [
                                                 (vue.openBlock(true), vue.createElementBlock(vue.Fragment, null, vue.renderList(_ctx.urlList, (url, i) => {
                                                     return vue.openBlock(), vue.createElementBlock(vue.Fragment, {key: i}, [
-                                                        i === activeIndex.value ? (vue.openBlock(), vue.createElementBlock("img", {
+                                                        i === activeIndex.value ? (vue.openBlock(), vue.createElementBlock("gif", {
                                                             key: 0,
                                                             ref_for: true,
                                                             ref: (el) => imgRefs.value[i] = el,
                                                             src: url,
                                                             style: vue.normalizeStyle(vue.unref(imgStyle)),
-                                                            class: vue.normalizeClass(vue.unref(ns).e("img")),
+                                                            class: vue.normalizeClass(vue.unref(ns).e("gif")),
                                                             crossorigin: _ctx.crossorigin,
                                                             onLoad: handleImgLoad,
                                                             onError: handleImgError,
@@ -35212,7 +35212,7 @@
                             class: vue.normalizeClass(vue.unref(ns).e("error"))
                         }, vue.toDisplayString(vue.unref(t)("el.image.error")), 3)
                     ]) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, {key: 1}, [
-                        imageSrc.value !== void 0 ? (vue.openBlock(), vue.createElementBlock("img", vue.mergeProps({key: 0}, vue.unref(imgAttrs), {
+                        imageSrc.value !== void 0 ? (vue.openBlock(), vue.createElementBlock("gif", vue.mergeProps({key: 0}, vue.unref(imgAttrs), {
                             src: imageSrc.value,
                             loading: _ctx.loading,
                             style: vue.unref(imageStyle),
@@ -58787,7 +58787,7 @@
                                     file,
                                     index
                                 }, () => [
-                                    _ctx.listType === "picture" || file.status !== "uploading" && _ctx.listType === "picture-card" ? (vue.openBlock(), vue.createElementBlock("img", {
+                                    _ctx.listType === "picture" || file.status !== "uploading" && _ctx.listType === "picture-card" ? (vue.openBlock(), vue.createElementBlock("gif", {
                                         key: 0,
                                         class: vue.normalizeClass(vue.unref(nsUpload).be("list", "item-thumbnail")),
                                         src: file.url,
