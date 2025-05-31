@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>进阶插槽</title>
     <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -57,8 +57,8 @@
     <template id="abc">
         <div>
             AA
-            <slot :customName="mydata">
-                <div>{{mydata}}}</div>
+            <slot :customName="myData">
+                <div>{{myData}}}</div>
             </slot>
             BB
         </div>
@@ -85,7 +85,7 @@
                     template: '#abc',
                     data() {
                         return {
-                            mydata: ['a1', 'a2', 'a3']
+                            myData: ['a1', 'a2', 'a3']
                         }
                     }
                 },

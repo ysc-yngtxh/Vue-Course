@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>插槽</title>
     <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -18,7 +18,7 @@
 
 
     <script type="text/javascript">
-        let productcom = Vue.component("product-com", {
+        let productCom = Vue.component("product-com", {
             props: ['html'],
             template: `<div class="alert">
                              <h1>温馨提示</h1>
@@ -28,8 +28,8 @@
                         </div>`,
         })
 
-        /*第二种情况*/
-        let productcom1 = Vue.component("product-com1", {
+        // 第二种情况
+        let productCom1 = Vue.component("product-com1", {
             props: ['html'],
             template: `<div class="alert">
                              <h1>欢迎光临</h1>
@@ -46,8 +46,8 @@
                 context: "小心地雷"
             },
             components: {
-                'product-com': productcom,
-                'product-com1': productcom1
+                'product-com': productCom,
+                'product-com1': productCom1
             }
         })
     </script>
