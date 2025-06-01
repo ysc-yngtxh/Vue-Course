@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <title>进阶插槽</title>
@@ -7,89 +7,92 @@
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-    <!--第一种-->
-    <myDiv>
-        A
-        <slot></slot>
-        B
-    </myDiv>
-    <template>
-        <myDiv>AA</myDiv>
-    </template>
-    <!--输出：A
-             AA
-             B
-    -->
+    <div id="app">
+        <!-- 基本插槽 -->
+        <my-component1>
+            <div>{{username.customName}}</div>
+        </my-component1>
 
-    <!--第二种-->
-    <myDiv>
-        <slot>定义默认内容</slot>
-    </myDiv>
-    <template>
-        <myDiv></myDiv>
-        <myDiv>AA</myDiv>
-    </template>
-    <!--输出：定义默认内容
-             AA
-    -->
+        <!-- 默认插槽 -->
+        <my-component2></my-component2>
 
-    <!--第三种-->
-    <myDiv>
-        A
-        <slot name='top'></slot>
-        B
-        <slot name='middle'></slot>
-        C
-        <slot name='bottom'></slot>
-    </myDiv>
-    <template>
-        <myDiv>
-            <div slot='middle'>mmm</div>
-        </myDiv>
-    </template>
-    <!--输出：A
-             B
-             mmm
-             C
-    -->
+        <!-- 具名插槽 -->
+        <my-component3>
+            <!-- 采用 v-slot:xxx 指令的形式找到对应的插槽，需要注意的是该指令需要作用在 template 元素上 -->
+            <template v-slot:header>
+                <div>我是 头部：{{ myData }}</div>
+            </template>
+            <div>我是 主体：{{ myData }}</div> <!-- 这部分内容会被插入到默认插槽（即v-slot:default）中 -->
+            <!-- #footer 是 v-slot:footer 的简写形式
+                 跟 v-on 和 v-bind 一样，v-slot 也有缩写，即把参数之前的所有内容 (v-slot:) 替换为字符 # -->
+            <template #footer>
+                <div>我是 页脚：{{ myData }}</div>
+            </template>
+        </my-component3>
+    </div>
 
-    <!--第四种-->
-    <template id="abc">
+    <!-- 第一种用法：插槽基本使用
+         1、<slot> 相当于给子组件挖出了一个槽，可以用来填充内容。
+         2、通常将插槽比作一个占位符，父组件中的内容元素会自动把 slot 标签替换掉。-->
+    <template id="my-template1">
         <div>
-            AA
-            <slot :customName="myData">
-                <div>{{myData}}}</div>
-            </slot>
-            BB
+            <h2>AA：my-template1</h2>
+            <slot></slot> <!-- slot 标签相当于一个占位符，父组件中的内容元素会自动把 slot 标签替换掉 -->
+            <h2>BB</h2><hr/>
         </div>
     </template>
 
-    <div id="app">
-        <my-component>
-            <template slot-scope="username"><!--slot-scope表示的是抽象的插槽，从而获取指定插槽中的数据-->
-                <!--Vue3中表示的v-slot效果一样-->
-                <div>{{username.customName}}</div>
-            </template>
-        </my-component>
-    </div>
+    <!-- 第二种用法：插槽默认内容
+         slot 标签内的内容就是默认内容。当父组件没有传递给子组件内容时，子组件就会默认渲染 slot 内部的内容（默认内容）-->
+    <template id="my-template2">
+        <div>
+            <h2>AA：my-template2</h2>
+            <slot>
+                <div>我是默认内容</div> <!-- 这部分内容会在父组件没有传递给子组件内容时显示 -->
+            </slot>
+            <h2>BB</h2><hr/>
+        </div>
+    </template>
+
+    <!-- 第三种用法：具名插槽
+         确保子组件存在多个插槽下，可以寻求到对应的父组件内容元素
+         注意点: 1、具名插槽的内容必须使用模板 <template></template> 包裹;
+                2、不指定名字的模板插入匿名插槽中，推荐使用具名插槽，方便代码追踪且直观清楚;
+                3、匿名插槽具有隐藏的名字"default;" -->
+    <template id="my-template3">
+        <div>
+            <h2>AA：my-template3</h2>
+            <div>
+                <slot name="header"></slot> <!-- 具名插槽，name 属性指定了插槽的名称 -->
+                <slot></slot> <!-- 没有添加 name 属性的<slot>，这个时候 Vue 会隐式的将这个插槽命名为‘default’ -->
+                <slot name="footer"></slot>
+            </div>
+            <h2>BB</h2><hr/>
+        </div>
+    </template>
 
 
     <script type="text/javascript">
         const app = new Vue({
             el: "#app",
             data: {
-                msg: 'm1',
+                username: {customName: '张三'},
+                myData: ['李四', '王五', '周六']
             },
             components: {
-                myComponent: {
-                    template: '#abc',
-                    data() {
-                        return {
-                            myData: ['a1', 'a2', 'a3']
-                        }
-                    }
-                },
-            },
+                myComponent1: ({
+                    name: 'my-component1',
+                    template: '#my-template1'
+                }),
+                myComponent2: ({
+                    name: 'my-component2',
+                    template: '#my-template2'
+                }),
+                myComponent3: ({
+                    name: 'my-component3',
+                    template: '#my-template3'
+                })
+            }
         })
     </script>
 </body>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定义插槽</title>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 父子组件 -->
+        <product-com1 :html='context'></product-com1>
+
+        <!-- 基本插槽 -->
+        <product-com2>
+            <span>小心熊出没，{{context}}</span>
+        </product-com2>
+        <product-com2></product-com2>
+
+        <!-- 具名插槽 -->
+        <product-com3>
+            <template v-slot:header>
+                <h2>我是头部</h2>
+            </template>
+            <p>小心熊出没，{{context}}</p>
+            <template v-slot:footer>
+                <h2>我是页脚</h2>
+            </template>
+        </product-com3>
+    </div>
+
+
+    <script type="text/javascript">
+        // 定义父子组件
+        let productCom1 = Vue.component("product-com1", {
+            props: ['html'],
+            template: `<div>
+                           <h1>product-com1</h1>
+                           <div>
+                               {{html}}
+                           </div><hr/>
+                        </div>`,
+        })
+
+        // 定义父子组件，子组件使用插槽
+        let productCom2 = Vue.component("product-com2", {
+            props: ['html'],
+            template: `<div>
+                           <h1>product-com2</h1>
+                           <div>
+                               <slot>
+                                   <p>定义默认内容</p>
+                               </slot>
+                           </div><hr/>
+                        </div>`,
+            // 插槽<slot></slot>就是将 <p>小心熊出没，{{context}}</p> 写进去。如果父组件没有传递内容，则显示默认内容
+        })
+
+        // 定义父子组件，子组件使用具名插槽
+        let productCom3 = Vue.component("product-com3", {
+            props: ['html'],
+            template: `<div>
+                           <h1>product-com3</h1>
+                           <div>
+                               <slot name="header"></slot>
+                               <slot></slot>
+                               <slot name="footer"></slot>
+                           </div><hr/>
+                        </div>`,
+            // <slot>标签的 name 属性指定了插槽的名称，用以填充父组件对应插槽名称的内容元素。
+            // 没有指定 name 属性的 <slot>，这个时候 Vue 会隐式的将这个插槽命名为‘default’。
+        })
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                context: "小心地雷"
+            },
+            components: {
+                'product-com1': productCom1,
+                'product-com2': productCom2,
+                'product-com3': productCom3
+            }
+        })
+    </script>
+</body>
+</html>

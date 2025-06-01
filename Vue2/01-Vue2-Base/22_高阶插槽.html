@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>高阶插槽</title>
+    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 动态插槽 -->
+        <my-component1>
+            <!-- 注意⚠️：JavaScript是大小写敏感的（如：dynamicSlotName）。
+                        在Vue中，模板是大小写不敏感的(如：v-slot:[dynamicSlotName]会被转换为v-slot:[dynamicslotname])，
+                        因此Vue模版值为 dynamicslotname，JavaScript变量名为 dynamicSlotName，就会造成无法匹配的问题 -->
+            <template v-slot:[dynamic_slot_name]>
+                <div>当前插槽：{{ dynamic_slot_name }}</div>
+            </template>
+        </my-component1>
+        <my-component1>
+            <template #[dynamic_slot_name]> <!-- 简写 -->
+                <div>我是 主体：{{ dynamic_slot_name }}</div>
+            </template>
+        </my-component1>
+
+        <!-- 插槽作用域传值 -->
+        <my-component2>
+            <template v-slot:default="slotProps">
+                <div>{{ slotProps.text }}---{{ slotProps.count }}</div>
+            </template>
+        </my-component2>
+        <my-component2>
+            <template v-slot="slotProps">
+                <div>{{ slotProps.text }}---{{ slotProps.count }}</div>
+            </template>
+        </my-component2>
+        <my-component2>
+            <template v-slot="{text, count}">
+                <div>{{ text }}---{{ count }}</div>
+            </template>
+        </my-component2>
+        <my-component3>
+            <template #header="{text, count}">
+                <div>{{ text }}---{{ count }}</div>
+            </template>
+        </my-component3>
+        <br/><br/>
+    </div>
+
+    <!-- 第一种用法：动态插槽名
+         slot 标签内的内容就是默认内容。当父组件没有传递给子组件内容时，子组件就会默认渲染 slot 内部的内容（默认内容）-->
+    <template id="my-template1">
+        <div>
+            <h2>AA：my-template1</h2>
+            <div>
+                <slot name="header"></slot>
+                <slot name="main"></slot>
+                <slot name="footer"></slot>
+            </div>
+            <h2>BB</h2><hr/>
+        </div>
+    </template>
+
+    <!-- 第二种用法：插槽作用域传值 -->
+    <template id="my-template2">
+        <div>
+            <h2>AA：my-template2</h2>
+            <div>
+                <slot text="我是子组件小猪课堂" :count="1"></slot>
+            </div>
+            <h2>BB</h2><hr/>
+        </div>
+    </template>
+    <template id="my-template3">
+        <div>
+            <h2>AA：my-template3</h2>
+            <div>
+                <slot name="header" text="我是子组件小猪课堂" :count="2"></slot>
+            </div>
+            <h2>BB</h2><hr/>
+        </div>
+    </template>
+
+
+    <script type="text/javascript">
+        const app = new Vue({
+            el: "#app",
+            data: {
+                dynamic_slot_name: 'header',
+                slots: ['header', 'main', 'footer']
+            },
+            components: {
+                myComponent1: ({
+                    name: 'my-component1',
+                    template: '#my-template1'
+                }),
+                myComponent2: ({
+                    name: 'my-component2',
+                    template: '#my-template2'
+                }),
+                myComponent3: ({
+                    name: 'my-component3',
+                    template: '#my-template3'
+                })
+            },
+            mounted() {
+                // 每隔2秒切换插槽用以实现动态插槽
+                setInterval(() => {
+                    const currentIndex = this.slots.indexOf(this.dynamic_slot_name)
+                    const nextIndex = (currentIndex + 1) % this.slots.length
+                    this.dynamic_slot_name = this.slots[nextIndex]
+                }, 2000)
+            }
+        })
+    </script>
+</body>
+</html>
