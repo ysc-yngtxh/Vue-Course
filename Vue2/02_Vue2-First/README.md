@@ -1,4 +1,4 @@
-# 02-vue-first
+# vue2-first
 
 ## Project setup
 ```

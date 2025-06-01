@@ -95,7 +95,7 @@
    # 运行项目
    npm run dev
    ```
-   ![create-vite](01_Vue3-Base/gif/create-vite.gif)<hr/>
+   ![create-vite](Vue3/01_Vue3-Base/gif/create-vite.gif)<hr/>
 
   2、使用npm 的 create-vue（基于Vite脚手架） 包创建Vue项目【官方推荐】<br/>
      <figure>
@@ -108,7 +108,7 @@
     # 该命令通过 npm 从远程拉取最新的 create-vue 包，自动执行包中的 create-vue 脚本，创建一个新的Vue项目（只支持Vue3）
     # 类似的其他工具命令（如 npm init react-app、npm init vite）也是同样的逻辑。
   ```
-  ![create-vue](01_Vue3-Base/gif/create-vue.gif)<hr/>
+  ![create-vue](Vue3/01_Vue3-Base/gif/create-vue.gif)<hr/>
 
   3、使用 @vue/cli（基于Webpack的脚手架）创建Vue项目。<br/>
      <figure>
