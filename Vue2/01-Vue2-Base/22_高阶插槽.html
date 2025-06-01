@@ -3,81 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <title>高阶插槽</title>
-    <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-2.7.16.js"></script>
+    <script src="js/jQuery-3.7.0.js"></script>
+    <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f5f7fa;
+          color: #333;
+          padding: 20px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .header {
+          grid-column: 1 / -1;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        #app {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+
+        .component-card {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .component-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+          color: #2c3e50;
+        }
+
+        h1 {
+          color: #3498db;
+          font-size: 2.5rem;
+          margin: 0;
+          padding: 20px 0;
+          position: relative;
+        }
+
+        h1::after {
+          content: "";
+          display: block;
+          width: 100px;
+          height: 4px;
+          background: linear-gradient(to right, #3498db, #9b59b6);
+          margin: 10px auto;
+          border-radius: 2px;
+        }
+
+        h2 {
+          border-bottom: 2px solid #3498db;
+          padding-bottom: 10px;
+          margin-top: 0;
+        }
+
+        .slot-content {
+          padding: 15px;
+          margin: 10px 0;
+          border-radius: 5px;
+          background-color: #e8f4fc;
+          border-left: 4px solid #3498db;
+        }
+
+        .dynamic-slot {
+          animation: fadeIn 0.5s ease;
+          background-color: #e8f8f5;
+          border-left: 4px solid #2ecc71;
+        }
+
+        .scope-slot {
+          background-color: #f9f0ff;
+          border-left: 4px solid #9b59b6;
+        }
+
+        .parent-child {
+          background-color: #fff8e1;
+          border-left: 4px solid #f39c12;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        hr {
+          border: 0;
+          height: 1px;
+          background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(52, 152, 219, 0.75), rgba(0, 0, 0, 0));
+          margin: 20px 0;
+        }
+
+        .badge {
+          display: inline-block;
+          padding: 3px 8px;
+          border-radius: 20px;
+          font-size: 0.8em;
+          font-weight: bold;
+          background-color: #3498db;
+          color: white;
+          margin-left: 10px;
+        }
+
+        .slot-name {
+          font-weight: bold;
+          color: #e74c3c;
+        }
+
+        @media (max-width: 900px) {
+          #app {
+            grid-template-columns: 1fr;
+          }
+        }
+    </style>
 </head>
 <body>
     <div id="app">
+        <div class="header">
+            <h1>Vue 高级插槽演示</h1>
+        </div>
+
         <!-- 动态插槽 -->
-        <my-component1>
-            <!-- 注意⚠️：JavaScript是大小写敏感的（如：dynamicSlotName）。
+        <div class="component-card">
+            <h2>动态插槽 <span class="badge">动态切换</span></h2>
+            <div class="slot-content dynamic-slot">
+              <!-- 注意⚠️：JavaScript是大小写敏感的（如：dynamicSlotName）。
                         在Vue中，模板是大小写不敏感的(如：v-slot:[dynamicSlotName]会被转换为v-slot:[dynamicslotname])，
                         因此Vue模版值为 dynamicslotname，JavaScript变量名为 dynamicSlotName，就会造成无法匹配的问题 -->
-            <template v-slot:[dynamic_slot_name]>
-                <div>当前插槽：{{ dynamic_slot_name }}</div>
-            </template>
-        </my-component1>
-        <my-component1>
-            <template #[dynamic_slot_name]> <!-- 简写 -->
-                <div>我是 主体：{{ dynamic_slot_name }}</div>
-            </template>
-        </my-component1>
+              <my-component1>
+                    <template v-slot:[dynamic_slot_name]> <!-- 通过模版语法 [dynamic_slot_name] 获取父组件动态数据-->
+                        <div>当前活动插槽: <span class="slot-name">{{ dynamic_slot_name }}</span></div>
+                    </template>
+                </my-component1>
+              <my-component1>
+                    <template #[dynamic_slot_name]> <!-- v-slot 简写为 # -->
+                        <div>当前活动插槽: <span class="slot-name">{{ dynamic_slot_name }}</span></div>
+                    </template>
+                </my-component1>
+            </div>
+            <p>每2秒自动切换插槽位置: header → main → footer</p>
+        </div>
 
         <!-- 插槽作用域传值 -->
-        <my-component2>
-            <template v-slot:default="slotProps">
-                <div>{{ slotProps.text }}---{{ slotProps.count }}</div>
-            </template>
-        </my-component2>
-        <my-component2>
-            <template v-slot="slotProps">
-                <div>{{ slotProps.text }}---{{ slotProps.count }}</div>
-            </template>
-        </my-component2>
-        <my-component2>
-            <template v-slot="{text, count}">
-                <div>{{ text }}---{{ count }}</div>
-            </template>
-        </my-component2>
-        <my-component3>
-            <template #header="{text, count}">
-                <div>{{ text }}---{{ count }}</div>
-            </template>
-        </my-component3>
-        <br/><br/>
+        <!-- 父传子 -->
+        <div class="component-card">
+            <h2>父传子通信 <span class="badge">Props</span></h2>
+            <div class="slot-content parent-child">
+                <my-component2 :title="username">
+                    <template>
+                        <h3>来自父组件的内容</h3>
+                        <p>父组件通过props向子组件传递数据</p>
+                    </template>
+                </my-component2>
+            </div>
+        </div>
+
+        <!-- 子传父 - 默认插槽 -->
+        <div class="component-card">
+            <h2>子传父通信 <span class="badge">作用域插槽</span></h2>
+            <div class="slot-content scope-slot">
+                <h3>默认插槽写法1</h3>
+                <my-component3>
+                  <!-- v-slot:default="slotProps" 表示接收来自 my-component2 组件的默认插槽(default slot)的作用域属性，
+                          并将这些属性收集到一个自定义名为 slotProps(可随意取名) 的对象中，然后在模板内部使用这些属性。 -->
+                  <template v-slot:default="slotProps">
+                        <div>子组件消息: "{{ slotProps.text }}"</div>
+                        <div>计数: {{ slotProps.count }}</div>
+                    </template>
+                </my-component3>
+            </div>
+            <div class="slot-content scope-slot">
+                <h3>默认插槽写法2</h3>
+                <my-component3>
+                    <template v-slot="slotProps"> <!-- v-slot:default="slotProps" 可简写为 v-slot="slotProps" -->
+                        <div>子组件消息: "{{ slotProps.text }}"</div>
+                        <div>计数: {{ slotProps.count }}</div>
+                    </template>
+                </my-component3>
+            </div>
+            <div class="slot-content scope-slot">
+                <h3>默认插槽写法3</h3>
+                <my-component3>
+                    <template v-slot="{text, count}"> <!-- 既然 slotProps 是一个对象，那么在父组件中可以直接使用解构的写法来获取数据 -->
+                        <div>子组件消息: "{{ text }}"</div>
+                        <div>计数: {{ count }}</div>
+                    </template>
+                </my-component3>
+            </div>
+            <div class="slot-content scope-slot" style="margin-top: 15px;">
+                <h3>具名插槽</h3>
+                <my-component4>
+                    <template #header="{text, count}"> <!-- 使用v-slot缩写 #，还有解构语法获取作用域属性 -->
+                        <div>子组件消息: "{{ text }}"</div>
+                        <div>计数: {{ count }}</div>
+                    </template>
+                </my-component4>
+            </div>
+        </div>
     </div>
 
-    <!-- 第一种用法：动态插槽名
+    <!-- 模版定义：动态插槽名
          slot 标签内的内容就是默认内容。当父组件没有传递给子组件内容时，子组件就会默认渲染 slot 内部的内容（默认内容）-->
     <template id="my-template1">
         <div>
-            <h2>AA：my-template1</h2>
-            <div>
-                <slot name="header"></slot>
-                <slot name="main"></slot>
-                <slot name="footer"></slot>
+            <h3>动态插槽容器</h3>
+            <div style="min-height: 80px;">
+                <slot name="header">
+                    <div class="slot-default">默认头部内容</div>
+                </slot>
+                <slot name="main">
+                    <div class="slot-default">默认主体内容</div>
+                </slot>
+                <slot name="footer">
+                    <div class="slot-default">默认底部内容</div>
+                </slot>
             </div>
-            <h2>BB</h2><hr/>
+            <hr/>
         </div>
     </template>
 
-    <!-- 第二种用法：插槽作用域传值 -->
+    <!-- 模版定义：插槽作用域传值 -->
+    <!-- 【父传子】父组件通过 props 属性向子组件传递数据 -->
     <template id="my-template2">
         <div>
-            <h2>AA：my-template2</h2>
-            <div>
-                <slot text="我是子组件小猪课堂" :count="1"></slot>
+            <slot></slot>
+            <div style="margin-top: 15px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                <h3>子组件接收到的数据</h3>
+                <p>用户名: <strong>{{ title }}</strong></p>
             </div>
-            <h2>BB</h2><hr/>
+            <hr/>
         </div>
     </template>
+    <!-- 【子传父】通过定义父组件的 v-slot="xxx" 指令，来接收子组件的插槽作用域属性对象，进而获取子组件传递的数据。 -->
     <template id="my-template3">
         <div>
-            <h2>AA：my-template3</h2>
-            <div>
-                <slot name="header" text="我是子组件小猪课堂" :count="2"></slot>
+            <h3>子组件 - 默认插槽</h3>
+            <div style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                <slot text="我是子组件传递的数据" :count="1"></slot>
             </div>
-            <h2>BB</h2><hr/>
+            <hr/>
+        </div>
+    </template>
+
+    <template id="my-template4">
+        <div>
+            <h3>子组件 - 具名(header)插槽</h3>
+            <div style="padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                <slot name="header" text="我是子组件传递的数据" :count="2"></slot>
+            </div>
+            <hr/>
         </div>
     </template>
 
@@ -86,22 +270,28 @@
         const app = new Vue({
             el: "#app",
             data: {
+                username: '小猪课堂',
                 dynamic_slot_name: 'header',
                 slots: ['header', 'main', 'footer']
             },
             components: {
-                myComponent1: ({
+                myComponent1: {
                     name: 'my-component1',
                     template: '#my-template1'
-                }),
-                myComponent2: ({
+                },
+                myComponent2: {
                     name: 'my-component2',
+                    props: ['title'],
                     template: '#my-template2'
-                }),
-                myComponent3: ({
+                },
+                myComponent3: {
                     name: 'my-component3',
                     template: '#my-template3'
-                })
+                },
+                myComponent4: {
+                    name: 'my-component4',
+                    template: '#my-template4'
+                }
             },
             mounted() {
                 // 每隔2秒切换插槽用以实现动态插槽
