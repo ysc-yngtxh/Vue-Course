@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style>
-.option a{
+.option a {
   text-decoration: none;
   color: #2c3e50;
 }

@@ -10,7 +10,7 @@
     <!--<router-view/>-->
     <!--<router-view/>-->
     <!--<router-view/>-->
-    <!--当存在多个 <router-view/> 的时候，，就相当于有相同个指定的组件替换 <router-view/>-->
+    <!--当存在多个 <router-view/> 的时候，就相当于有相同个指定的组件替换 <router-view/>-->
   </div>
 </template>
 

@@ -155,7 +155,7 @@
         </div>
 
         <!-- 插槽作用域传值 -->
-        <!-- 父传子 -->
+        <!-- 【父传子】-->
         <div class="component-card">
             <h2>父传子通信 <span class="badge">Props</span></h2>
             <div class="slot-content parent-child">
@@ -194,13 +194,13 @@
             <div class="slot-content scope-slot">
                 <h3>默认插槽写法3</h3>
                 <my-component3>
-                    <template v-slot="{text, count}"> <!-- 既然 slotProps 是一个对象，那么在父组件中可以直接使用解构的写法来获取数据 -->
+                    <template v-slot="{text, count}"> <!-- 既然 slotProps 是一个对象，那么在父组件中可以直接使用解构语法来获取数据 -->
                         <div>子组件消息: "{{ text }}"</div>
                         <div>计数: {{ count }}</div>
                     </template>
                 </my-component3>
             </div>
-            <div class="slot-content scope-slot" style="margin-top: 15px;">
+            <div class="slot-content scope-slot">
                 <h3>具名插槽</h3>
                 <my-component4>
                     <template #header="{text, count}"> <!-- 使用v-slot缩写 #，还有解构语法获取作用域属性 -->

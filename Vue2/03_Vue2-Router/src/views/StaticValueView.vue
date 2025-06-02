@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>获取路由值 -- {{id}} <br> 以及静态值 -- {{username}}</h2>
+    <h2>获取路由值 -- {{ id }} <br> 以及静态值 -- {{ username }}</h2>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'StaticValue',
-  props: ['id','username'],
+  props: ['id', 'username'],
   mounted() {
     console.log(this)
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Hello，你好！{{$route.params.id}}</h2>
+    <h2>Hello，你好！{{ $route.params.id }}</h2>
     <div class="option">
       <router-link :to="'/'">Home</router-link>
       ｜
@@ -16,7 +16,7 @@
 <!--选项式API：可以使用包含多个选项的对象来描述组件的逻辑，例如 data、methods 和 mounted。
               选项所定义的属性都会暴露在函数内部的 this 上，它会指向当前的组件实例。-->
 <script>
-export default{
+export default {
   mounted() {
     console.log(this)
   }
@@ -24,7 +24,7 @@ export default{
 </script>
 
 <style scoped>
-.option a{
+.option a {
   text-decoration: none;
   color: #2c3e50;
 }

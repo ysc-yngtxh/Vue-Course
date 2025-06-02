@@ -6,7 +6,7 @@
 
 <style>
 .background {
-  font-family: DejaVu Math TeX Gyre,serif;
+  font-family: DejaVu Math TeX Gyre, serif;
   position: relative;
   z-index: 999;
 }
