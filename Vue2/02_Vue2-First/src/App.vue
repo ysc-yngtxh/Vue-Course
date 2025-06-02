@@ -22,7 +22,6 @@
   text-align: center;
   color: #2c3e50;
 }
-
 nav {
   padding: 30px;
 
@@ -36,5 +35,3 @@ nav {
   }
 }
 </style>
-<script setup lang="ts">
-</script>

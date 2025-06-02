@@ -1,14 +1,10 @@
-<template>
-    <div id="app">
-        <nav>
-            <!--导航栏-->
-            <router-view name="AsideComponent"/>
-            <!--侧边栏-->
-            <router-view name="NavComponent"/>
-            <!--内容栏-->
-            <router-view/>
-        </nav>
-    </div>
+<template id="app">
+  <!--导航栏-->
+  <router-view name="AsideComponent"/>
+  <!--侧边栏-->
+  <router-view name="NavComponent"/>
+  <!--内容栏-->
+  <router-view/>
 </template>
 
 <script>
@@ -36,13 +32,16 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 nav {
   padding: 30px;
 }
+
 nav a {
   font-weight: bold;
   color: #2c3e50;
 }
+
 nav a.router-link-exact-active {
   color: #42b983;
 }

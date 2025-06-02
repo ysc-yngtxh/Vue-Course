@@ -1,20 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import Home from '@/views/HomeView.vue'
 import AsideComponent from '@/components/AsideComponent.vue'
 import NavComponent from '@/components/NavComponent.vue'
 import VideoPath from '@/components/children/VideoPath.vue'
 import TextPath from '@/components/children/TextPath.vue'
 import ImagePath from '@/components/children/ImagePath.vue'
-
-// 在Vue上注册 VueRouter 插件。Vue2使用 VueRouter，Vue3写法是使用 createRouter
-// 作用：
-//    1、注册全局组件（如 <router-link> 和 <router-view>）。
-//    2、添加 $router 和 $route 属性，使得所有组件可以通过 this.$router 和 this.$route 访问路由实例和当前路由信息。
-// 需知：虽然注册VueRouter插件能访问 this.$router，但没有实际的路由实例，比如调用 this.$router.push() 就会报错。
-//      原因在于 VueRouter 插件只是提供了路由功能的接口和方法，并不直接管理路由实例，调用 push() 等方法时是无法感知到具体路由实例的。
-//      因此就需要在 main.js 文件中将配置好的 VueRouter 实例注入到 Vue实例，这样绑定具体路由实例到应用，就能正常使用路由功能。
-Vue.use(VueRouter)
 
 const routes = [
     {
@@ -23,13 +13,15 @@ const routes = [
         components: {
             AsideComponent,
             NavComponent,
-            // 当存在多个组件时，有必要指定默认组件。否则 Vue Router 无法判断哪个为默认组件。
-            default: Home   // 默认组件，用以对应没有name属性的 <router-view/>。
+            default: Home,
         }
     },
     {
         path: '/about',
         name: 'About',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     // 重定向
@@ -60,7 +52,7 @@ const routes = [
     {
         path: '/assignment/:id',
         name: 'Assignment',
-        // props设置为true，那么$route.params将会被设置为组件属性，为已知的属性数据
+        // props设置为true,那么$route.params将会被设置为组件属性，为已知的属性数据
         props: true,
         component: () => import(/* webpackChunkName: "assignment" */ '../views/AssignmentView.vue')
     },
@@ -83,31 +75,22 @@ const routes = [
         children: [
             {
                 path: 'video',
-                name: 'VideoPath', // 建议为子路由添加name
                 component: VideoPath
             },
             {
                 path: 'text',
-                name: 'TextPath',
                 component: TextPath
             },
             {
                 path: 'image',
-                name: 'ImagePath',
                 component: ImagePath
             }
         ]
     }
 ]
 
-
-// 通过 Vue Router 的 createRouter 和 createWebHistory 创建路由实例
-// const router = createRouter({
-//     history: createWebHistory(),  // 如果使用createWebHashHistory(),该项目路径中含有 /#/
-//     routes
-// })
-const router = new VueRouter({
-    mode: 'history', // 或 'hash'
+const router = createRouter({
+    history: createWebHistory(),  // 如果使用createWebHashHistory(),该项目路径中含有 /#/
     routes
 })
 

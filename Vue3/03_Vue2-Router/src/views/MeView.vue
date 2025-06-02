@@ -2,9 +2,12 @@
   <div>
     <h2>Hello，你好！{{ $route.params.id }}</h2>
     <div class="option">
-      <router-link :to="'/'">Home</router-link> ｜
-      <router-link :to="{name:'About'}">About</router-link> ｜
-      <router-link :to="{path:'/news'}">新闻</router-link> ｜
+      <router-link :to="'/'">Home</router-link>
+      ｜
+      <router-link :to="{name:'About'}">About</router-link>
+      ｜
+      <router-link :to="{path:'/news'}">新闻</router-link>
+      ｜
       <router-link :to="'/me/123'">个人中心</router-link>
     </div>
   </div>
@@ -23,7 +26,7 @@ export default {
 <style scoped>
 .option a {
   text-decoration: none;
-  color: #5ca5ef;
+  color: #2c3e50;
 }
 .option a.router-link-exact-active {
   color: #42b983;

@@ -2,12 +2,9 @@
   <div>
     <h2>实时播报新闻</h2>
     <div class="option">
-      <router-link :to="'/'">Home</router-link>
-      ｜
-      <router-link :to="{name:'About'}">About</router-link>
-      ｜
-      <router-link :to="{path:'/news'}" replace>新闻</router-link>
-      ｜
+      <router-link :to="'/'">Home</router-link> ｜
+      <router-link :to="{name:'About'}">About</router-link> ｜
+      <router-link :to="{path:'/news'}" replace="">新闻</router-link> ｜
       <router-link :to="'/me/123'">个人中心</router-link>
     </div>
   </div>
@@ -26,7 +23,7 @@ export default {
 <style>
 .option a {
   text-decoration: none;
-  color: #2c3e50;
+  color: #5ca5ef;
 }
 .option a.router-link-exact-active {
   color: #42b983;
