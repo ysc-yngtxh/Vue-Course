@@ -1,20 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AsideComponent from '@/components/AsideComponent.vue'
 import NavComponent from '@/components/NavComponent.vue'
 import VideoPath from '@/components/children/VideoPath.vue'
 import TextPath from '@/components/children/TextPath.vue'
 import ImagePath from '@/components/children/ImagePath.vue'
-
-// 在Vue上注册 VueRouter 插件。Vue2使用 VueRouter，Vue3写法是使用 createRouter
-// 作用：
-//    1、注册全局组件（如 <router-link> 和 <router-view>）。
-//    2、添加 $router 和 $route 属性，使得所有组件可以通过 this.$router 和 this.$route 访问路由实例和当前路由信息。
-// 需知：虽然注册VueRouter插件能访问 this.$router，但没有实际的路由实例，比如调用 this.$router.push() 就会报错。
-//      原因在于 VueRouter 插件只是提供了路由功能的接口和方法，并不直接管理路由实例，调用 push() 等方法时是无法感知到具体路由实例的。
-//      因此就需要在 main.js 文件中将配置好的 VueRouter 实例注入到 Vue实例，这样绑定具体路由实例到应用，就能正常使用路由功能。
-Vue.use(VueRouter)
 
 const routes = [
     {
@@ -47,11 +37,11 @@ const routes = [
         }
     },
     {
-        path: '/alias',
-        name: 'Alias',
-        // 别名：就是浏览器地址栏上的uri地址是 '/alias' 还是 '/self' 表示的都是同一个页面
+        path: '/news',
+        name: 'News',
+        // 别名：就是浏览器地址栏上的uri地址是 '/news' 还是 '/self' 表示的都是同一个页面
         alias: '/self',
-        component: () => import(/* webpackChunkName: "news" */ '../views/AliasView.vue')
+        component: () => import(/* webpackChunkName: "news" */ '../views/NewsView.vue')
     },
     {
         path: '/me/:id',
@@ -101,9 +91,8 @@ const routes = [
     }
 ]
 
-
-const router = new VueRouter({
-    mode: 'history', // 或 'hash'
+const router = createRouter({
+    history: createWebHistory(),  // 如果使用createWebHashHistory(),该项目路径中含有 /#/
     routes
 })
 

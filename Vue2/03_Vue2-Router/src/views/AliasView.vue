@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h2>Hello，你好！{{ $route.params.id }}</h2>
+    <h2>实时播报新闻</h2>
     <div class="option">
       <router-link :to="'/'">Home</router-link> ｜
       <router-link :to="{name:'About'}">About</router-link> ｜
-      <router-link :to="{path:'/alias'}">新闻</router-link> ｜
+      <router-link :to="{path:'/alias'}" replace="">新闻</router-link> ｜
       <router-link :to="'/me/123'">个人中心</router-link>
     </div>
   </div>
@@ -15,13 +15,12 @@
 <script>
 export default {
   mounted() {
-    console.log(this)
+    console.log(this.$route)
   }
 }
 </script>
 
-
-<style scoped>
+<style>
 .option a {
   text-decoration: none;
   color: #5ca5ef;
