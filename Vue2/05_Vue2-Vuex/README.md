@@ -1,4 +1,4 @@
-# 04_Vue2-Vuex
+# 05_Vue2-Vuex
 
 ## Project setup
 ```

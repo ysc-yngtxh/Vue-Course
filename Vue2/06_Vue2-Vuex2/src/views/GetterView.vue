@@ -8,9 +8,9 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
-  computed:{
+  name: "GetterView",
+  computed: {
     ...mapGetters(['addAge']),
-  },
-  name: "GetterView"
+  }
 }
 </script>

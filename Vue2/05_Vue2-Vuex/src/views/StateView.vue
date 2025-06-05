@@ -22,17 +22,17 @@ export default {
   //   }
   // },
   // 使用计算属性可以完成对state中数据取值和赋值的过程，其包含重写后的get和set方法
-  computed:{
-      storeName:function(){
+  computed: {
+      storeName: function() {
           return this.$store.state.name
       },
-      storeAge:function(){
+      storeAge: function() {
           return this.$store.state.age
       },
-      storePhone:function(){
+      storePhone: function() {
           return this.$store.state.phone
       },
-      storeAddress:{
+      storeAddress: {
           get() {
               return this.$store.state.address;
           },

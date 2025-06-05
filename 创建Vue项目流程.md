@@ -244,3 +244,40 @@
      </figure>
   </h4>
 </figure>
+
+
+## 四、扩展知识点
+<figure>
+  <h4>
+
+    1、添加依赖：npm install <package-name> --save
+         例如：npm install axios --save
+         注意：--save 是默认行为，可以省略。
+    2、安装开发依赖：npm install <package-name> --save-dev
+         例如：npm install eslint --save-dev
+         注意：--save-dev 用于安装开发环境依赖，不会被打包到生产环境中。
+    3、安装全局依赖：npm install <package-name> -g
+         例如：npm install @vue/cli -g
+         注意：-g 表示全局安装，适用于命令行工具。全局安装的包可以在任何地方使用，不需要在项目中单独安装。
+    4、卸载依赖：npm uninstall <package-name>
+         例如：npm uninstall axios
+    5、更新依赖：npm update <package-name>
+         例如：npm update axios
+    6、查看已安装的依赖：npm list --depth=0
+         例如：npm list --depth=0
+         注意：--depth=0 表示只显示顶层依赖，不显示子依赖。
+    7、查看全局已安装的依赖：npm list -g --depth=0
+         例如：npm list -g --depth=0
+    8、查看依赖的版本：npm view <package-name> version
+         例如：npm view axios version
+    9、查看依赖的所有信息：npm view <package-name>
+         例如：npm view axios
+    10、查看当前项目的依赖信息：npm ls
+         例如：npm ls
+    11、查看当前项目的依赖树：npm ls --all
+         例如：npm ls --all
+    12、使用脚手架添加依赖
+         vue add <package-name>
+
+  </h4>
+</figure>
