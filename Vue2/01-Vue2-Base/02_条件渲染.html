@@ -7,7 +7,7 @@
     <script src="js/vue-2.7.16.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jQuery-3.7.0.js" type="text/javascript" charset="utf-8"></script>
 
-    <style type="text/css">
+    <style type="text/css"> /* type属性已被弃用，因为浏览器默认会将 <style> 内容视为 CSS，不需要额外声明 */
         #pane {
             background: #53c5f3;
             width: 200px;
@@ -17,12 +17,12 @@
 </head>
 <body>
     <!--
-        v-show: 是控制css的display是否为none来隐藏或展示，dom元素一直都是在的。
-        v-if: 显示隐藏是直接将整个dom元素添加或删除
-        如果需要频繁地切换，则v-show较好；如果在运行时条件很少改变，则使用v-if较好。
+        v-show  是控制css的display是否为none来隐藏或展示，dom元素一直都是在的。
+        v-if    显示隐藏是直接将整个dom元素添加或删除
+        如果需要频繁地切换，则 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
     -->
     <div id="app">
-        <h1>用户名:{{username}}</h1>
+        <h1>用户名：{{username}}</h1>
         <h3 v-if="isVip">用户类型：Vip</h3>
         <!--注意v-if和v-else中间不能有其他的元素-->
         <h3 v-else>用户类型：普通用户</h3>
