@@ -10,7 +10,7 @@
         </div>
         <div class="btnList">
           <div @click="cancelEvent" class="btn cancel">取消</div>
-          <div @click="comfirmEvent" class="btn comfirm">确认</div>
+          <div @click="confirmEvent" class="btn confirm">确认</div>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default {
     .fullScreen();
     background: rgba(0, 0, 0, @zhezhaopai);
     justify-content: center; // 项目位于水平中心
-    align-items: center; // 项目位于垂直中心
+    align-items: center;     // 项目位于垂直中心
   }
 
   .alertMain {
@@ -99,7 +99,7 @@ export default {
       color: @font-color;
     }
 
-    .comfirm {
+    .confirm {
       background: yellowgreen;
       color: @font-color;
     }

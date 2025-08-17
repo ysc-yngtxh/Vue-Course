@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Alert v-if="isAlert" :title="title" :context="context" :cancelEvent="cancelEvent"
-           :comfirmEvent="confirmEvent"></Alert>
+    <Alert v-if="isAlert" :title="title" :context="context"
+           :cancelEvent="cancelEvent" :confirmEvent="confirmEvent"></Alert>
     <HelloWorld v-if="!isAlert" :msg="msg"></HelloWorld>
   </div>
 </template>
