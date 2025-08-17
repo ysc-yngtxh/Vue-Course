@@ -1,4 +1,4 @@
-# 07_Vue2-Axios
+# 07_vue2-pinia
 
 ## Project setup
 ```
