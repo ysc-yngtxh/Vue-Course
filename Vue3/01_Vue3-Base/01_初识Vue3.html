@@ -6,6 +6,14 @@
     <script src="js/vue-3.5.13.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+    <!-- 1.1 什么是 v-cloak？
+             v-cloak 是 Vue 提供的一个内置指令，它用于在 Vue 实例编译完成之前隐藏元素。
+             当 Vue 实例编译完成后，v-cloak 指令会自动从元素上移除。
+         1.2 v-cloak 的作用
+             在 Vue 应用中，当页面加载时，可能会出现一个短暂的时间窗口，在这个时间窗口内，
+             未编译的 Mustache 标签会显示在页面上，这会导致用户体验不佳。
+             v-cloak 指令可以解决这个问题，它通过隐藏这些未编译的标签，直到 Vue 实例编译完成。
+    -->
     <div id="app" v-cloak>
         <h1>{{ message }}</h1>
     </div>
