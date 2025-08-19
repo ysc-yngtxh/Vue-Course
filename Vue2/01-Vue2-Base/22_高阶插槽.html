@@ -137,25 +137,25 @@
         <div class="component-card">
             <h2>动态插槽 <span class="badge">动态切换</span></h2>
             <div class="slot-content dynamic-slot">
-              <!-- 注意⚠️：JavaScript是大小写敏感的（如：dynamicSlotName）。
-                        在Vue中，模板是大小写不敏感的(如：v-slot:[dynamicSlotName]会被转换为v-slot:[dynamicslotname])，
-                        因此Vue模版值为 dynamicslotname，JavaScript变量名为 dynamicSlotName，就会造成无法匹配的问题 -->
-              <my-component1>
+                <!-- 注意⚠️：在Vue中，模板是大小写不敏感的；而JavaScript是大小写敏感的（如：dynamicSlotName）。
+                          在Vue中（v-slot:[dynamicSlotName] 会被转换为 v-slot:[dynamicslotname]，因此Vue模版值为 dynamicslotname）
+                          而在JavaScript中的变量名为 dynamicSlotName，就会造成无法匹配的问题 -->
+                <my-component1>
                     <template v-slot:[dynamic_slot_name]> <!-- 通过模版语法 [dynamic_slot_name] 获取父组件动态数据-->
                         <div>当前活动插槽: <span class="slot-name">{{ dynamic_slot_name }}</span></div>
                     </template>
                 </my-component1>
-              <my-component1>
+                <my-component1>
                     <template #[dynamic_slot_name]> <!-- v-slot 简写为 # -->
                         <div>当前活动插槽: <span class="slot-name">{{ dynamic_slot_name }}</span></div>
                     </template>
                 </my-component1>
             </div>
-            <p>每2秒自动切换插槽位置: header → main → footer</p>
+            <p>每2秒自动切换插槽位置:<br/> header → main → footer</p>
         </div>
 
         <!-- 插槽作用域传值 -->
-        <!-- 【父传子】-->
+        <!--【父传子】-->
         <div class="component-card">
             <h2>父传子通信 <span class="badge">Props</span></h2>
             <div class="slot-content parent-child">
@@ -168,15 +168,15 @@
             </div>
         </div>
 
-        <!-- 子传父 - 默认插槽 -->
+        <!--【子传父】- 默认插槽 -->
         <div class="component-card">
             <h2>子传父通信 <span class="badge">作用域插槽</span></h2>
             <div class="slot-content scope-slot">
                 <h3>默认插槽写法1</h3>
                 <my-component3>
-                  <!-- v-slot:default="slotProps" 表示接收来自 my-component2 组件的默认插槽(default slot)的作用域属性，
-                          并将这些属性收集到一个自定义名为 slotProps(可随意取名) 的对象中，然后在模板内部使用这些属性。 -->
-                  <template v-slot:default="slotProps">
+                    <!-- v-slot:default="slotProps" 表示接收来自 my-component2 组件的默认插槽(default slot)的作用域属性，
+                         并将这些属性收集到一个自定义名为 slotProps(可随意取名) 的对象中，然后在模板内部使用这些属性。 -->
+                    <template v-slot:default="slotProps">
                         <div>子组件消息: "{{ slotProps.text }}"</div>
                         <div>计数: {{ slotProps.count }}</div>
                     </template>
@@ -233,7 +233,7 @@
     </template>
 
     <!-- 模版定义：插槽作用域传值 -->
-    <!-- 【父传子】父组件通过 props 属性向子组件传递数据 -->
+    <!--【父传子】父组件通过 props 属性向子组件传递数据 -->
     <template id="my-template2">
         <div>
             <slot></slot>
@@ -244,7 +244,7 @@
             <hr/>
         </div>
     </template>
-    <!-- 【子传父】通过定义父组件的 v-slot="xxx" 指令，来接收子组件的插槽作用域属性对象，进而获取子组件传递的数据。 -->
+    <!--【子传父】通过定义父组件的 v-slot="xxx" 指令，来接收子组件的插槽作用域属性对象，进而获取子组件传递的数据。 -->
     <template id="my-template3">
         <div>
             <h3>子组件 - 默认插槽</h3>
@@ -295,6 +295,8 @@
             },
             mounted() {
                 // 每隔2秒切换插槽用以实现动态插槽
+                // setInterval()会不停的调用函数，直到clearInterval()被调用或者窗口被关闭，由 setInterval()返回的ID值可用作clearInterval()方法的参数。
+                // setTimeout()只执行函数一次，如果需要多次调用可以使用setInterval()，或者在函数体内再次调用setTimeout()
                 setInterval(() => {
                     const currentIndex = this.slots.indexOf(this.dynamic_slot_name)
                     const nextIndex = (currentIndex + 1) % this.slots.length
